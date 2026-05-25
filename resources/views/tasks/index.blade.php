@@ -63,9 +63,6 @@
                             class="font-body-lg text-body-lg text-on-surface block cursor-pointer transition-colors {{ $task->is_completed ? 'line-through text-outline' : '' }}">{{ $task->title }}
                         </label>
                         <div class="flex items-center gap-4 mt-1">
-                            <span
-                                class="px-2 py-0.5 bg-surface-container-high text-primary rounded text-[10px] font-bold uppercase tracking-tighter">{{ $task->priority }}
-                            </span>
                             <span class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant">
                                 <span class="material-symbols-outlined text-[14px]">calendar_today</span>
                                 {{$task->due_date}}
@@ -74,13 +71,30 @@
                                 <span class="material-symbols-outlined text-[14px]">schedule</span>
                                 {{$task->due_time}}
                             </span>
-
                         </div>
                     </div>
-                    <span
-                        class="px-2 py-1 {{ $task->is_completed ? 'bg-secondary-container text-on-secondary-container' : 'bg-error-container text-on-error-container' }} rounded-lg text-label-sm font-label-sm">
-                        {{ $task->is_completed ? 'Completed' : 'Incomplete' }}
-                    </span>
+
+                    <div class="flex items-center gap-2">
+                        <!-- Priority Badge -->
+                        @php
+                            $priorityColors = [
+                                'high' => 'bg-error-container text-on-error-container',
+                                'medium' => 'bg-surface-variant text-on-secondary-fixed-variant',
+                                'low' => 'bg-secondary-container text-on-secondary-fixed-variant',
+                            ];
+                            $colorClass = $priorityColors[strtolower($task->priority)] ?? 'bg-surface-container text-on-surface';
+                        @endphp
+                        <span
+                            class="px-2.5 py-1 {{ $colorClass }} rounded-lg text-label-sm font-label-sm uppercase tracking-wider font-bold">
+                            {{ $task->priority }}
+                        </span>
+
+                        <!-- Status Badge -->
+                        <span
+                            class="px-2.5 py-1 {{ $task->is_completed ? 'bg-secondary-container text-on-secondary-container' : 'bg-error-container text-on-error-container' }} rounded-lg text-label-sm font-label-sm">
+                            {{ $task->is_completed ? 'Completed' : 'Incomplete' }}
+                        </span>
+                    </div>
 
                     <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                         <a href="{{ route('tasks.edit', $task->id) }}"
@@ -116,34 +130,6 @@
                 <div class="absolute -right-4 -bottom-4 opacity-10">
                     <span class="material-symbols-outlined text-[120px]"
                         style="font-variation-settings: 'FILL' 1;">insights</span>
-                </div>
-            </div>
-            <!-- Category Breakdown -->
-            <div class="bg-surface-container-low rounded-2xl p-6 border border-outline-variant">
-                <h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-4">
-                    Focus by Category</h3>
-                <div class="space-y-4">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-3">
-                            <span class="w-3 h-3 rounded-full bg-primary"></span>
-                            <span class="font-body-md text-body-md">Work</span>
-                        </div>
-                        <span class="font-label-md text-label-md">12 Tasks</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-3">
-                            <span class="w-3 h-3 rounded-full bg-secondary"></span>
-                            <span class="font-body-md text-body-md">Personal</span>
-                        </div>
-                        <span class="font-label-md text-label-md">4 Tasks</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-3">
-                            <span class="w-3 h-3 rounded-full bg-tertiary"></span>
-                            <span class="font-body-md text-body-md">Health</span>
-                        </div>
-                        <span class="font-label-md text-label-md">2 Tasks</span>
-                    </div>
                 </div>
             </div>
             <!-- Decorative/Atmospheric Graphic Card -->
