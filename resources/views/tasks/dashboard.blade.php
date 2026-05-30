@@ -13,15 +13,15 @@
                                 <circle class="text-outline-variant" cx="24" cy="24" fill="transparent" r="20"
                                     stroke="currentColor" stroke-width="4"></circle>
                                 <circle class="text-secondary" cx="24" cy="24" fill="transparent" r="20"
-                                    stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="75.36"
+                                    stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="{{ 125.6 * (1 - $progressPercentage / 100) }}"
                                     stroke-width="4"></circle>
                             </svg>
-                            <span class="font-label-md text-label-md text-on-surface">40%</span>
+                            <span class="font-label-md text-label-md text-on-surface">{{ $progressPercentage }}%</span>
                         </div>
                         <div>
                             <p class="font-label-md text-label-md text-on-secondary-container font-bold">Today's
                                 Progress</p>
-                            <p class="font-body-md text-body-md text-on-surface">4 of 10 tasks completed</p>
+                            <p class="font-body-md text-body-md text-on-surface">{{ $completedTasks }} of {{ $totalTasks }} tasks completed</p>
                         </div>
                     </div>
                 </div>
@@ -36,61 +36,57 @@
                             <span class="material-symbols-outlined text-error" data-icon="event_busy">event_busy</span>
                             Upcoming Deadlines
                         </h3>
-                        <button class="text-primary font-label-md text-label-md hover:underline">View All</button>
+                        <a href="{{ route('tasks.index') }}" class="text-primary font-label-md text-label-md hover:underline">View All</a>
                     </div>
                     <div class="space-y-3">
-                        <!-- Task Item -->
-                        <div
-                            class="flex items-center p-4 rounded-lg border border-slate-200 hover:elevation-2 transition-all group cursor-pointer">
-                            <div class="h-10 w-10 bg-error-container rounded-lg flex items-center justify-center mr-4">
-                                <span class="material-symbols-outlined text-error"
-                                    data-icon="priority_high">priority_high</span>
+                        @forelse ($upcomingTasks as $task)
+                            <a href="{{ route('tasks.show', $task->id) }}"
+                                class="flex items-center p-4 rounded-lg border border-slate-200 hover:elevation-2 hover:bg-surface-container-low transition-all group cursor-pointer">
+                                @php
+                                    $priorityColors = [
+                                        'high' => 'bg-error-container text-error',
+                                        'medium' => 'bg-surface-variant text-on-surface-variant',
+                                        'low' => 'bg-secondary-container text-secondary',
+                                    ];
+                                    $priorityColor = $priorityColors[strtolower($task->priority)] ?? 'bg-surface-container text-on-surface-variant';
+                                    
+                                    $priorityIcons = [
+                                        'high' => 'priority_high',
+                                        'medium' => 'description',
+                                        'low' => 'chat',
+                                    ];
+                                    $priorityIcon = $priorityIcons[strtolower($task->priority)] ?? 'task_alt';
+                                @endphp
+                                <div class="h-10 w-10 {{ $priorityColor }} rounded-lg flex items-center justify-center mr-4">
+                                    <span class="material-symbols-outlined">{{ $priorityIcon }}</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-body-lg text-body-lg font-bold group-hover:text-primary transition-colors">{{ $task->title }}</h4>
+                                    <p class="text-label-sm text-on-surface-variant truncate max-w-xs md:max-w-md">{{ $task->description ?: 'No description' }}</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-label-md font-bold {{ strtolower($task->priority) === 'high' ? 'text-error' : 'text-on-surface' }}">
+                                        {{ $task->due_date ? $task->due_date : 'No due date' }}
+                                        @if($task->due_time)
+                                            , {{ $task->due_time }}
+                                        @endif
+                                    </p>
+                                    <span class="text-label-sm px-2 py-0.5 rounded-full {{ $priorityColor }} font-bold uppercase tracking-wider">
+                                        {{ $task->priority }}
+                                    </span>
+                                </div>
+                            </a>
+                        @empty
+                            <div class="text-center py-10 border border-dashed border-outline-variant rounded-xl">
+                                <span class="material-symbols-outlined text-[48px] text-on-surface-variant mb-2">task_alt</span>
+                                <p class="text-body-lg font-bold text-on-surface">All caught up!</p>
+                                <p class="text-label-md text-on-surface-variant">You have no upcoming incomplete tasks.</p>
+                                <a href="{{ route('tasks.create') }}" class="mt-4 inline-flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md">
+                                    <span class="material-symbols-outlined text-[18px]">add</span>
+                                    Create Task
+                                </a>
                             </div>
-                            <div class="flex-1">
-                                <h4 class="font-body-lg text-body-lg font-bold">Redesign Onboarding Flow</h4>
-                                <p class="text-label-sm text-on-surface-variant">Client: Neon Studio</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-label-md font-bold text-error">Today, 5:00 PM</p>
-                                <span
-                                    class="text-label-sm bg-error-container text-on-error-container px-2 py-0.5 rounded-full">High</span>
-                            </div>
-                        </div>
-                        <!-- Task Item -->
-                        <div
-                            class="flex items-center p-4 rounded-lg border border-slate-200 hover:elevation-2 transition-all group cursor-pointer">
-                            <div
-                                class="h-10 w-10 bg-surface-container flex items-center justify-center mr-4 rounded-lg">
-                                <span class="material-symbols-outlined text-primary"
-                                    data-icon="description">description</span>
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="font-body-lg text-body-lg font-bold">Quarterly Report Draft</h4>
-                                <p class="text-label-sm text-on-surface-variant">Internal Team</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-label-md font-bold text-on-surface">Tomorrow, 10:00 AM</p>
-                                <span
-                                    class="text-label-sm bg-surface-container-highest text-on-surface-variant px-2 py-0.5 rounded-full">Medium</span>
-                            </div>
-                        </div>
-                        <!-- Task Item -->
-                        <div
-                            class="flex items-center p-4 rounded-lg border border-slate-200 hover:elevation-2 transition-all group cursor-pointer">
-                            <div
-                                class="h-10 w-10 bg-secondary-container flex items-center justify-center mr-4 rounded-lg">
-                                <span class="material-symbols-outlined text-secondary" data-icon="chat">chat</span>
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="font-body-lg text-body-lg font-bold">Feedback Call with Stakeholders</h4>
-                                <p class="text-label-sm text-on-surface-variant">Project: Focus 2.0</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-label-md font-bold text-on-surface">Oct 24, 2:30 PM</p>
-                                <span
-                                    class="text-label-sm bg-secondary-container text-on-secondary-fixed-variant px-2 py-0.5 rounded-full">Low</span>
-                            </div>
-                        </div>
+                        @endforelse
                     </div>
                 </section>
                 <!-- Project Overview (Sidebar Grid) -->

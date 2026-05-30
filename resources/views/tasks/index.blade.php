@@ -21,7 +21,7 @@
     </div>
     <!-- Filters / Chips -->
     <div class="flex flex-wrap gap-stack-md mb-8">
-        <div class="flex items-center gap-2 pr-4 border-r border-outline-variant">
+        <div class="flex items-center gap-2 pr-4 border-outline-variant">
             <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Priority</span>
             <button
                 class="px-3 py-1 bg-error-container text-on-error-container rounded-full text-label-sm font-label-sm hover:brightness-95 transition-all">High</button>
@@ -29,15 +29,6 @@
                 class="px-3 py-1 bg-surface-variant text-on-secondary-fixed-variant rounded-full text-label-sm font-label-sm hover:brightness-95 transition-all">Medium</button>
             <button
                 class="px-3 py-1 bg-secondary-container text-on-secondary-fixed-variant rounded-full text-label-sm font-label-sm hover:brightness-95 transition-all">Low</button>
-        </div>
-        <div class="flex items-center gap-2">
-            <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Category</span>
-            <button
-                class="px-3 py-1 bg-surface-container-highest text-primary rounded-full text-label-sm font-label-sm hover:bg-primary hover:text-white transition-all">Work</button>
-            <button
-                class="px-3 py-1 bg-surface-container-highest text-primary rounded-full text-label-sm font-label-sm hover:bg-primary hover:text-white transition-all">Personal</button>
-            <button
-                class="px-3 py-1 bg-surface-container-highest text-primary rounded-full text-label-sm font-label-sm hover:bg-primary hover:text-white transition-all">Health</button>
         </div>
     </div>
     <!-- Bento Layout Content -->
@@ -78,14 +69,14 @@
                         <!-- Priority Badge -->
                         @php
                             $priorityColors = [
-                                'high' => 'bg-error-container text-on-error-container',
+                                'high' => 'bg-error-container text-on-secondary-fixed-variant',
                                 'medium' => 'bg-surface-variant text-on-secondary-fixed-variant',
                                 'low' => 'bg-secondary-container text-on-secondary-fixed-variant',
                             ];
-                            $colorClass = $priorityColors[strtolower($task->priority)] ?? 'bg-surface-container text-on-surface';
+                            $colorClass = $priorityColors[strtolower($task->priority)] ?? 'bg-surface-container text-on-secondary-fixed-variant';
                         @endphp
                         <span
-                            class="px-2.5 py-1 {{ $colorClass }} rounded-lg text-label-sm font-label-sm uppercase tracking-wider font-bold">
+                            class="px-2.5 py-1 {{ $colorClass }} rounded-lg text-label-sm font-label-sm uppercase tracking-wider mr-10 font-bold">
                             {{ $task->priority }}
                         </span>
 
@@ -96,7 +87,7 @@
                         </span>
                     </div>
 
-                    <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div class="flex items-center gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
                         <a href="{{ route('tasks.edit', $task->id) }}"
                             class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors"
                             title="Edit Task">edit</a>
@@ -141,9 +132,7 @@
                     <p class="text-white font-label-md text-label-md italic">"Focus is the art of knowing what
                         to ignore."</p>
                 </div>
-            </div>
         </div>
-    </div>
     </div>
     <!-- Micro-interaction Script -->
     <script>

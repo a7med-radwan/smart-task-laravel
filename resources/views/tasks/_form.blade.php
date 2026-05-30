@@ -79,7 +79,7 @@
                     <!-- Actions -->
                     <div class="pt-stack-md flex flex-col sm:flex-row items-center justify-end gap-stack-md">
                         <a href="{{ route('tasks.index') }}"
-                            class="w-full sm:w-auto px-6 py-2.5 font-label-md text-label-md text-primary-container hover:bg-surface-container transition-colors rounded-lg text-center border border-outline-variant text-on-surface">
+                            class="w-full sm:w-auto px-6 py-2.5 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors rounded-lg text-center border border-outline-variant">
                             Cancel
                         </a>
                         <button

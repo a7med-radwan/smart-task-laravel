@@ -141,12 +141,21 @@
 </head>
 
 <body class="text-on-surface">
+    <!-- Sidebar Backdrop for Mobile -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden transition-opacity duration-300 opacity-0"></div>
+
     <!-- Side Navigation Shell -->
-    <aside
-        class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-dim shadow-sm flex flex-col py-stack-lg px-stack-md z-50">
-        <div class="mb-10 px-stack-sm">
-            <h1 class="text-headline-md font-headline-md font-black text-primary dark:text-primary-fixed-dim">Focus</h1>
-            <p class="text-label-md font-label-md text-on-surface-variant">Productivity Workspace</p>
+    <aside id="sidebar"
+        class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-dim shadow-sm flex flex-col py-stack-lg px-stack-md z-50 -translate-x-full lg:translate-x-0 transition-transform duration-300">
+        <div class="mb-10 px-stack-sm flex items-center justify-between">
+            <div>
+                <h1 class="text-headline-md font-headline-md font-black text-primary dark:text-primary-fixed-dim">Focus</h1>
+                <p class="text-label-md font-label-md text-on-surface-variant">Productivity Workspace</p>
+            </div>
+            <!-- Close button for mobile sidebar -->
+            <button id="sidebar-close" class="lg:hidden p-1 rounded-lg hover:bg-surface-container text-on-surface-variant transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
         </div>
         <nav class="flex-grow space-y-1">
             <a class="flex items-center px-4 py-3 {{ request()->routeIs('dashboard') ? 'text-primary font-bold bg-surface-container-highest' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container' }} rounded-lg transition-all duration-200 group"
@@ -164,8 +173,8 @@
                 <span class="material-symbols-outlined mr-3">calendar_month</span>
                 <span class="font-label-md text-label-md">Calendar</span>
             </a>
-            <a class="flex items-center px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all duration-200 rounded-lg group"
-                href="#">
+            <a class="flex items-center px-4 py-3 {{ request()->routeIs('profile') ? 'text-primary font-bold bg-surface-container-highest' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container' }} rounded-lg transition-all duration-200 group"
+                href="{{ route('profile') }}">
                 <span class="material-symbols-outlined mr-3">person</span>
                 <span class="font-label-md text-label-md">Profile</span>
             </a>
@@ -188,12 +197,17 @@
             </a>
         </div>
     </aside>
+
     <!-- Main Content Area -->
-    <main class="ml-64 min-h-screen bg-surface">
+    <main class="lg:ml-64 min-h-screen bg-surface transition-all duration-300">
         <!-- Top Nav Bar -->
         <header
             class="w-full h-16 flex justify-between items-center px-gutter-desktop max-w-container-max mx-auto border-b border-outline-variant dark:border-outline bg-surface sticky top-0 z-40">
             <div class="flex items-center gap-4 flex-1">
+                <!-- Hamburger menu for mobile -->
+                <button id="sidebar-toggle" class="lg:hidden p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
                 <div class="relative w-full max-w-md">
                     <span
                         class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
@@ -205,11 +219,34 @@
             <div class="flex items-center gap-stack-lg ml-gutter-desktop">
                 <button
                     class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer">notifications</button>
-                <div class="flex items-center gap-2 cursor-pointer group">
-                    <img alt="User" class="w-8 h-8 rounded-full border border-outline-variant"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzZXrwBc7Mg_2WZgmUDKBJNVuasxB8-1X1rN3zKq2xHpp3GcMD2v3Np3NGP4ZIt7jRmvhs0XMqwWeOgT_hyAeYUqT6CQyRTn0SpBMJH_e5FeZjArk4qU90xT9Ka_MhiyomQBDwF69gEGTya5Mzod8CerIYQmZBWMnGNM2BuTI_cc3_J4K6iKo0eGcJIE5zKmSvG1zaDTMPXcG7j1yoExMzPXqVA0Fn37s6Tt9jm_F7ZibjHx8TTTxZWFqfT2Yh_6fzTUvOhkLpbdP4">
-                    <span
-                        class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">account_circle</span>
+                
+                <!-- Profile Dropdown Container -->
+                <div class="relative">
+                    <button id="profile-menu-btn" class="flex items-center gap-2 cursor-pointer group focus:outline-none">
+                        <img alt="User" class="w-8 h-8 rounded-full border border-outline-variant object-cover shadow-sm transition-transform duration-200 hover:scale-105"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBejaqFDvDKfpGiLnRX8V4dt3rhc1peiPzqO9lxPu__bN-6xevdvJNd020I5hcew4IEctjUKsZpidAfOYhZB21yeFDdVM_rpuz95FcKgJbYve5dwrLbVuhw0h8dzQgd13Uf7wYoC3YbqETvFe2C0buGIsfobYJt-dP5K35pB5eY5X2JEZDP55qIJqLdkmn8YLy8Eottt8YsAv6Jskxty7lbqIKjNNWTq7JeMa4XxCeIJS1aYGjnWzOJaJjFs6FZl8LkAGcV-bHcebN">
+                        <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[18px]">keyboard_arrow_down</span>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white dark:bg-inverse-surface border border-outline-variant rounded-xl shadow-lg py-2 hidden z-50 transform origin-top-right transition-all scale-95 opacity-0 duration-150">
+                        <div class="px-4 py-2 border-b border-outline-variant">
+                            <p class="text-body-md font-bold text-on-surface">Alexander Wright</p>
+                            <p class="text-label-sm text-on-surface-variant truncate">alexander.w@focus.com</p>
+                        </div>
+                        <a href="{{ route('profile') }}" class="flex items-center px-4 py-2 text-body-md text-on-surface hover:bg-surface-container transition-colors">
+                            <span class="material-symbols-outlined mr-2 text-[18px]">person</span>
+                            My Profile
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-2 text-body-md text-on-surface hover:bg-surface-container transition-colors">
+                            <span class="material-symbols-outlined mr-2 text-[18px]">settings</span>
+                            Settings
+                        </a>
+                        <div class="border-t border-outline-variant my-1"></div>
+                        <a href="#" class="flex items-center px-4 py-2 text-body-md text-error hover:bg-error-container/10 transition-colors">
+                            <span class="material-symbols-outlined mr-2 text-[18px]">logout</span>
+                            Sign Out
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
@@ -218,7 +255,7 @@
         </div>
     </main>
 
-    <!-- Micro-interaction Script -->
+    <!-- Sidebar & Dropdown Script -->
     <script>
         // Search highlight effect
         const searchInput = document.querySelector('input[type="text"]');
@@ -228,6 +265,62 @@
             });
             searchInput.addEventListener('blur', () => {
                 searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+            });
+        }
+
+        // Sidebar responsive functionality
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarClose = document.getElementById('sidebar-close');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+        function toggleSidebar() {
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebarOverlay.classList.remove('hidden');
+                setTimeout(() => sidebarOverlay.classList.remove('opacity-0'), 10);
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebarOverlay.classList.add('opacity-0');
+                setTimeout(() => sidebarOverlay.classList.add('hidden'), 300);
+            }
+        }
+
+        if (sidebarToggle) sidebarToggle.addEventListener('click', toggleSidebar);
+        if (sidebarClose) sidebarClose.addEventListener('click', toggleSidebar);
+        if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
+
+        // Profile Dropdown functionality
+        const profileMenuBtn = document.getElementById('profile-menu-btn');
+        const profileDropdown = document.getElementById('profile-dropdown');
+
+        if (profileMenuBtn && profileDropdown) {
+            profileMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isHidden = profileDropdown.classList.contains('hidden');
+                if (isHidden) {
+                    profileDropdown.classList.remove('hidden');
+                    setTimeout(() => {
+                        profileDropdown.classList.remove('scale-95', 'opacity-0');
+                        profileDropdown.classList.add('scale-100', 'opacity-100');
+                    }, 10);
+                } else {
+                    profileDropdown.classList.remove('scale-100', 'opacity-100');
+                    profileDropdown.classList.add('scale-95', 'opacity-0');
+                    setTimeout(() => {
+                        profileDropdown.classList.add('hidden');
+                    }, 150);
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!profileDropdown.classList.contains('hidden') && !profileMenuBtn.contains(e.target)) {
+                    profileDropdown.classList.remove('scale-100', 'opacity-100');
+                    profileDropdown.classList.add('scale-95', 'opacity-0');
+                    setTimeout(() => {
+                        profileDropdown.classList.add('hidden');
+                    }, 150);
+                }
             });
         }
     </script>
