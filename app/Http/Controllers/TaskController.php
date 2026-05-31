@@ -41,7 +41,7 @@ class TaskController extends Controller
             'priority' => 'required|in:high,medium,low',
         ]);
 
-        $validated['user_id'] = auth()->id() ?? 1;
+        $validated['user_id'] = auth()->id();
 
         Task::create($validated);
         return redirect()->route('tasks.index');

@@ -49,6 +49,14 @@
             <p class="text-body-lg text-on-surface-variant mt-2">Sign in to your productivity workspace</p>
         </div>
 
+        @if (session('status'))
+            <div
+                class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 text-body-md rounded-xl flex items-start gap-2">
+                <span class="material-symbols-outlined shrink-0 text-green-500">check_circle</span>
+                <p>{{ session('status') }}</p>
+            </div>
+        @endif
+
         @if ($errors->any())
             <div
                 class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-body-md rounded-xl flex items-start gap-2">
