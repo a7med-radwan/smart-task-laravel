@@ -56,7 +56,7 @@
             </div>
         @endif
 
-        <form action="{{ route('register') }}" method="POST" class="space-y-5">
+        <form action="{{ route('register.store') }}" method="POST" class="space-y-5">
             @csrf
             <!-- Name -->
             <div>

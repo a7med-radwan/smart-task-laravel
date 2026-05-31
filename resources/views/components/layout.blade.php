@@ -142,18 +142,21 @@
 
 <body class="text-on-surface">
     <!-- Sidebar Backdrop for Mobile -->
-    <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden transition-opacity duration-300 opacity-0"></div>
+    <div id="sidebar-overlay"
+        class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden transition-opacity duration-300 opacity-0"></div>
 
     <!-- Side Navigation Shell -->
     <aside id="sidebar"
         class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-dim shadow-sm flex flex-col py-stack-lg px-stack-md z-50 -translate-x-full lg:translate-x-0 transition-transform duration-300">
         <div class="mb-10 px-stack-sm flex items-center justify-between">
             <div>
-                <h1 class="text-headline-md font-headline-md font-black text-primary dark:text-primary-fixed-dim">Focus</h1>
+                <h1 class="text-headline-md font-headline-md font-black text-primary dark:text-primary-fixed-dim">Focus
+                </h1>
                 <p class="text-label-md font-label-md text-on-surface-variant">Productivity Workspace</p>
             </div>
             <!-- Close button for mobile sidebar -->
-            <button id="sidebar-close" class="lg:hidden p-1 rounded-lg hover:bg-surface-container text-on-surface-variant transition-colors">
+            <button id="sidebar-close"
+                class="lg:hidden p-1 rounded-lg hover:bg-surface-container text-on-surface-variant transition-colors">
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
@@ -205,7 +208,8 @@
             class="w-full h-16 flex justify-between items-center px-gutter-desktop max-w-container-max mx-auto border-b border-outline-variant dark:border-outline bg-surface sticky top-0 z-40">
             <div class="flex items-center gap-4 flex-1">
                 <!-- Hamburger menu for mobile -->
-                <button id="sidebar-toggle" class="lg:hidden p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+                <button id="sidebar-toggle"
+                    class="lg:hidden p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
                     <span class="material-symbols-outlined">menu</span>
                 </button>
                 <div class="relative w-full max-w-md">
@@ -219,33 +223,46 @@
             <div class="flex items-center gap-stack-lg ml-gutter-desktop">
                 <button
                     class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer">notifications</button>
-                
+
                 <!-- Profile Dropdown Container -->
                 <div class="relative">
-                    <button id="profile-menu-btn" class="flex items-center gap-2 cursor-pointer group focus:outline-none">
-                        <img alt="User" class="w-8 h-8 rounded-full border border-outline-variant object-cover shadow-sm transition-transform duration-200 hover:scale-105"
+                    <button id="profile-menu-btn"
+                        class="flex items-center gap-2 cursor-pointer group focus:outline-none">
+                        <img alt="User"
+                            class="w-8 h-8 rounded-full border border-outline-variant object-cover shadow-sm transition-transform duration-200 hover:scale-105"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBejaqFDvDKfpGiLnRX8V4dt3rhc1peiPzqO9lxPu__bN-6xevdvJNd020I5hcew4IEctjUKsZpidAfOYhZB21yeFDdVM_rpuz95FcKgJbYve5dwrLbVuhw0h8dzQgd13Uf7wYoC3YbqETvFe2C0buGIsfobYJt-dP5K35pB5eY5X2JEZDP55qIJqLdkmn8YLy8Eottt8YsAv6Jskxty7lbqIKjNNWTq7JeMa4XxCeIJS1aYGjnWzOJaJjFs6FZl8LkAGcV-bHcebN">
-                        <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[18px]">keyboard_arrow_down</span>
+                        <span
+                            class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[18px]">keyboard_arrow_down</span>
                     </button>
                     <!-- Dropdown Menu -->
-                    <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white dark:bg-inverse-surface border border-outline-variant rounded-xl shadow-lg py-2 hidden z-50 transform origin-top-right transition-all scale-95 opacity-0 duration-150">
+                    <div id="profile-dropdown"
+                        class="absolute right-0 mt-2 w-48 bg-white dark:bg-inverse-surface border border-outline-variant rounded-xl shadow-lg py-2 hidden z-50 transform origin-top-right transition-all scale-95 opacity-0 duration-150">
                         <div class="px-4 py-2 border-b border-outline-variant">
                             <p class="text-body-md font-bold text-on-surface">Alexander Wright</p>
                             <p class="text-label-sm text-on-surface-variant truncate">alexander.w@focus.com</p>
                         </div>
-                        <a href="{{ route('profile') }}" class="flex items-center px-4 py-2 text-body-md text-on-surface hover:bg-surface-container transition-colors">
+                        <a href="{{ route('profile') }}"
+                            class="flex items-center px-4 py-2 text-body-md text-on-surface hover:bg-surface-container transition-colors">
                             <span class="material-symbols-outlined mr-2 text-[18px]">person</span>
                             My Profile
                         </a>
-                        <a href="#" class="flex items-center px-4 py-2 text-body-md text-on-surface hover:bg-surface-container transition-colors">
+                        <a href="#"
+                            class="flex items-center px-4 py-2 text-body-md text-on-surface hover:bg-surface-container transition-colors">
                             <span class="material-symbols-outlined mr-2 text-[18px]">settings</span>
                             Settings
                         </a>
                         <div class="border-t border-outline-variant my-1"></div>
-                        <a href="#" class="flex items-center px-4 py-2 text-body-md text-error hover:bg-error-container/10 transition-colors">
-                            <span class="material-symbols-outlined mr-2 text-[18px]">logout</span>
-                            Sign Out
+                        <a href="{{ route('logout') }}"
+                            class="flex items-center px-4 py-2 text-body-md text-error hover:bg-error-container/10 transition-colors"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <span class="material-symbols-outlined mr-2 text-[18px]">
+                                logout
+                            </span>
+                            Logout
                         </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                            @csrf
+                        </form>
                     </div>
                 </div>
             </div>
