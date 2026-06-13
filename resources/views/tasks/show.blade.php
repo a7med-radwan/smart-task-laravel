@@ -49,14 +49,14 @@
             <!-- Date & Time Info -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 bg-surface-container-low rounded-xl">
                 <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-primary p-2 bg-white dark:bg-inverse-surface rounded-lg shadow-sm">calendar_today</span>
+                    <span class="material-symbols-outlined text-primary p-2 bg-surface-container rounded-lg shadow-sm">calendar_today</span>
                     <div>
                         <p class="text-label-sm text-on-surface-variant uppercase tracking-wider">Due Date</p>
                         <p class="text-body-md font-bold text-on-surface">{{ $task->due_date ?: 'No date set' }}</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-secondary p-2 bg-white dark:bg-inverse-surface rounded-lg shadow-sm">schedule</span>
+                    <span class="material-symbols-outlined text-secondary p-2 bg-surface-container rounded-lg shadow-sm">schedule</span>
                     <div>
                         <p class="text-label-sm text-on-surface-variant uppercase tracking-wider">Due Time</p>
                         <p class="text-body-md font-bold text-on-surface">{{ $task->due_time ?: 'No time set' }}</p>
@@ -87,7 +87,7 @@
                     <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this task?');" class="m-0">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="px-5 py-2.5 bg-white border border-error text-error rounded-xl font-label-md text-label-md hover:bg-error-container/10 active:scale-95 transition-all flex items-center gap-2">
+                        <button type="submit" class="px-5 py-2.5 bg-surface-container border border-error text-error rounded-xl font-label-md text-label-md hover:bg-error/10 active:scale-95 transition-all flex items-center gap-2">
                             <span class="material-symbols-outlined text-[18px]">delete</span>
                             Delete
                         </button>

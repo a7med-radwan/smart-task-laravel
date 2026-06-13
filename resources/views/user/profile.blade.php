@@ -14,9 +14,8 @@
                     </button>
                 </div>
                 <div class="text-center md:text-left flex-1">
-                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-1">Alexander Wright</h2>
-                    <p class="font-body-lg text-body-lg text-on-surface-variant mb-4">alexander.w@focus-workspace.com
-                    </p>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-1">{{ auth()->user()->name }}</h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant mb-4">{{ auth()->user()->email }}</p>
                     <div class="flex flex-wrap justify-center md:justify-start gap-2">
                         <span
                             class="px-3 py-1 bg-secondary-container text-on-secondary-fixed-variant rounded-full text-label-md font-label-md">Pro
@@ -127,9 +126,9 @@
                                 </div>
                                 <div class="flex bg-surface-container p-1 rounded-lg">
                                     <button
-                                        class="px-3 py-1 bg-white shadow-sm rounded-md text-label-sm font-label-md">Light</button>
+                                        class="px-3 py-1 text-on-surface-variant text-label-sm font-label-md hover:text-on-surface">Light</button>
                                     <button
-                                        class="px-3 py-1 text-on-surface-variant text-label-sm font-label-md hover:text-on-surface">Dark</button>
+                                        class="px-3 py-1 bg-surface-container-high shadow-sm rounded-md text-label-sm font-label-md font-bold text-on-surface">Dark</button>
                                 </div>
                             </div>
                             <!-- Focus Mode -->

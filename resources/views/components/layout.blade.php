@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html class="dark" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet">
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -19,52 +19,52 @@
                 extend: {
                     "colors": {
                         "on-tertiary-fixed": "#2a1700",
-                        "surface-bright": "#f8f9ff",
-                        "on-secondary": "#ffffff",
-                        "surface-dim": "#cbdbf5",
-                        "surface-container": "#e5eeff",
-                        "on-primary": "#ffffff",
-                        "secondary-fixed": "#6ffbbe",
-                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#22242f",
+                        "on-secondary": "#121318",
+                        "surface-dim": "#121318",
+                        "surface-container": "#1a1b23",
+                        "on-primary": "#121318",
+                        "secondary-fixed": "#34d399",
+                        "surface-container-lowest": "#0e0f14",
                         "tertiary-fixed-dim": "#ffb95f",
-                        "tertiary": "#684000",
+                        "tertiary": "#ffb95f",
                         "inverse-primary": "#c3c0ff",
-                        "on-primary-container": "#dad7ff",
-                        "surface-container-low": "#eff4ff",
-                        "secondary": "#006c49",
+                        "on-primary-container": "#ede9fe",
+                        "surface-container-low": "#15161d",
+                        "secondary": "#34d399",
                         "primary-fixed-dim": "#c3c0ff",
                         "on-tertiary": "#ffffff",
-                        "on-surface-variant": "#464555",
-                        "error": "#ba1a1a",
+                        "on-surface-variant": "#8a8d98",
+                        "error": "#fb7185",
                         "primary-fixed": "#e2dfff",
-                        "inverse-on-surface": "#eaf1ff",
+                        "inverse-on-surface": "#121318",
                         "on-primary-fixed": "#0f0069",
                         "on-secondary-fixed": "#002113",
-                        "on-secondary-container": "#00714d",
-                        "outline-variant": "#c7c4d8",
-                        "surface-tint": "#4d44e3",
-                        "secondary-fixed-dim": "#4edea3",
-                        "primary": "#3525cd",
+                        "on-secondary-container": "#a7f3d0",
+                        "outline-variant": "#262936",
+                        "surface-tint": "#a78bfa",
+                        "secondary-fixed-dim": "#34d399",
+                        "primary": "#a78bfa",
                         "tertiary-fixed": "#ffddb8",
-                        "background": "#f8f9ff",
-                        "surface-variant": "#d3e4fe",
+                        "background": "#121318",
+                        "surface-variant": "#22242f",
                         "on-error": "#ffffff",
                         "on-tertiary-container": "#ffd4a4",
-                        "error-container": "#ffdad6",
-                        "on-surface": "#0b1c30",
-                        "surface-container-highest": "#d3e4fe",
-                        "on-error-container": "#93000a",
-                        "surface-container-high": "#dce9ff",
-                        "on-secondary-fixed-variant": "#005236",
+                        "error-container": "#881337",
+                        "on-surface": "#e2e4e9",
+                        "surface-container-highest": "#2c2e3c",
+                        "on-error-container": "#fecdd3",
+                        "surface-container-high": "#22242f",
+                        "on-secondary-fixed-variant": "#34d399",
                         "tertiary-container": "#885500",
-                        "primary-container": "#4f46e5",
-                        "surface": "#f8f9ff",
-                        "inverse-surface": "#213145",
-                        "on-primary-fixed-variant": "#3323cc",
+                        "primary-container": "#6d28d9",
+                        "surface": "#1a1b23",
+                        "inverse-surface": "#e2e4e9",
+                        "on-primary-fixed-variant": "#8b5cf6",
                         "on-tertiary-fixed-variant": "#653e00",
-                        "outline": "#777587",
-                        "on-background": "#0b1c30",
-                        "secondary-container": "#6cf8bb"
+                        "outline": "#4c4f5d",
+                        "on-background": "#e2e4e9",
+                        "secondary-container": "#064e3b"
                     },
                     "borderRadius": {
                         "DEFAULT": "0.25rem",
@@ -82,13 +82,13 @@
                         "stack-sm": "4px"
                     },
                     "fontFamily": {
-                        "headline-md": ["Geist"],
-                        "label-md": ["Geist"],
-                        "label-sm": ["Geist"],
-                        "body-md": ["Geist"],
-                        "headline-lg": ["Geist"],
-                        "headline-lg-mobile": ["Geist"],
-                        "body-lg": ["Geist"]
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"]
                     },
                     "fontSize": {
                         "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
@@ -105,8 +105,8 @@
     </script>
     <style>
         body {
-            font-family: 'Geist', sans-serif;
-            background-color: #f8f9ff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #121318;
         }
 
         .material-symbols-outlined {
@@ -117,12 +117,12 @@
 
         .task-checkbox:checked+label {
             text-decoration: line-through;
-            color: #777587;
+            color: #8a8d98;
         }
 
         .task-checkbox:checked {
-            background-color: #006c49;
-            border-color: #006c49;
+            background-color: #34d399;
+            border-color: #34d399;
         }
 
         .custom-scrollbar::-webkit-scrollbar {
@@ -134,10 +134,11 @@
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #d3e4fe;
+            background: #262936;
             border-radius: 10px;
         }
     </style>
+    {{ $headScripts ?? '' }}
 </head>
 
 <body class="text-on-surface">
@@ -236,10 +237,10 @@
                     </button>
                     <!-- Dropdown Menu -->
                     <div id="profile-dropdown"
-                        class="absolute right-0 mt-2 w-48 bg-white dark:bg-inverse-surface border border-outline-variant rounded-xl shadow-lg py-2 hidden z-50 transform origin-top-right transition-all scale-95 opacity-0 duration-150">
+                        class="absolute right-0 mt-2 w-48 bg-surface-container-high border border-outline-variant rounded-xl shadow-lg py-2 hidden z-50 transform origin-top-right transition-all scale-95 opacity-0 duration-150">
                         <div class="px-4 py-2 border-b border-outline-variant">
-                            <p class="text-body-md font-bold text-on-surface">Alexander Wright</p>
-                            <p class="text-label-sm text-on-surface-variant truncate">alexander.w@focus.com</p>
+                            <p class="text-body-md font-bold text-on-surface">{{ auth()->user()->name }}</p>
+                            <p class="text-label-sm text-on-surface-variant truncate">{{ auth()->user()->email }}</p>
                         </div>
                         <a href="{{ route('profile') }}"
                             class="flex items-center px-4 py-2 text-body-md text-on-surface hover:bg-surface-container transition-colors">

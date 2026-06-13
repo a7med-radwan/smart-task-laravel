@@ -3,7 +3,8 @@
     <div class="flex justify-between items-end mb-8">
         <div>
             <h2 class="font-headline-lg text-headline-lg text-on-surface">Task List</h2>
-            <p class="font-body-md text-body-md text-on-surface-variant">You have 8 tasks remaining for today.
+            <p class="font-body-md text-body-md text-on-surface-variant">You have
+                {{ $tasks->where('is_completed', false)->count() }} tasks remaining.
             </p>
         </div>
         <div class="flex gap-stack-md">
@@ -110,13 +111,18 @@
             <!-- Progress Card -->
             <div class="bg-primary text-on-primary rounded-2xl p-6 shadow-lg relative overflow-hidden">
                 <div class="relative z-10">
-                    <h3 class="font-headline-md text-headline-md mb-2">Weekly Goal</h3>
-                    <p class="font-body-md text-body-md opacity-90 mb-6">You've completed 65% of your tasks this
-                        week. Keep it up!</p>
+                    <h3 class="font-headline-md text-headline-md mb-2">Goal Progress</h3>
+                    @php
+                        $total = $tasks->count();
+                        $completed = $tasks->where('is_completed', true)->count();
+                        $percentage = $total > 0 ? round(($completed / $total) * 100) : 0;
+                    @endphp
+                    <p class="font-body-md text-body-md opacity-90 mb-6">You've completed {{ $percentage }}% of your
+                        tasks. Keep it up!</p>
                     <div class="w-full bg-white/20 h-2 rounded-full mb-2">
-                        <div class="bg-secondary-fixed w-[65%] h-full rounded-full"></div>
+                        <div class="bg-secondary-fixed h-full rounded-full" style="width: {{ $percentage }}%"></div>
                     </div>
-                    <span class="text-label-sm font-label-sm">18/28 tasks finished</span>
+                    <span class="text-label-sm font-label-sm">{{ $completed }}/{{ $total }} tasks finished</span>
                 </div>
                 <div class="absolute -right-4 -bottom-4 opacity-10">
                     <span class="material-symbols-outlined text-[120px]"
@@ -132,19 +138,23 @@
                     <p class="text-white font-label-md text-label-md italic">"Focus is the art of knowing what
                         to ignore."</p>
                 </div>
+            </div>
         </div>
-    </div>
-    <!-- Micro-interaction Script -->
-    <script>
-        document.querySelectorAll('.task-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                const parent = this.closest('.bg-surface-container-lowest');
-                if (this.checked) {
-                    parent.classList.add('opacity-60');
-                } else {
-                    parent.classList.remove('opacity-60');
-                }
+        <div class="col-span-5 flex justify-end mt-gutter-desktop">
+            {{ $tasks->links() }}
+        </div>
+        <!-- Micro-interaction Script -->
+        <script>
+            // Initialize Tinymce
+            document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', function () {
+                    const parent = this.closest('.bg-surface-container-lowest');
+                    if (this.checked) {
+                        parent.classList.add('opacity-60');
+                    } else {
+                        parent.classList.remove('opacity-60');
+                    }
+                });
             });
-        });
-    </script>
+        </script>
 </x-layout>

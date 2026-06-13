@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -12,7 +14,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        $user = Auth::user();
+        $tasks = $user->tasks()->paginate(1);
         return view('tasks.index', [
             'tasks' => $tasks,
         ]);
@@ -31,15 +34,9 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'due_date' => 'nullable|date',
-            'due_time' => 'nullable|string',
-            'priority' => 'required|in:high,medium,low',
-        ]);
+        $validated = $request->validated();
 
         $validated['user_id'] = auth()->id();
 
@@ -72,16 +69,9 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TaskRequest $request, string $id)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'is_completed' => 'nullable|boolean',
-            'due_date' => 'nullable|date',
-            'due_time' => 'nullable|string',
-            'priority' => 'required|in:high,medium,low',
-        ]);
+        $validated = $request->validated();
 
         $task = Task::findOrFail($id);
 

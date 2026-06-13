@@ -11,18 +11,18 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: "#3525cd",
-                        "on-surface": "#0b1c30",
-                        "on-surface-variant": "#464555",
-                        "outline-variant": "#c7c4d8",
-                        background: "#f8f9ff",
-                        surface: "#f8f9ff",
+                        primary: "#a78bfa",
+                        "on-surface": "#e2e4e9",
+                        "on-surface-variant": "#8a8d98",
+                        "outline-variant": "#262936",
+                        background: "#121318",
+                        surface: "#1a1b23",
                     }
                 }
             }
@@ -30,8 +30,8 @@
     </script>
     <style>
         body {
-            font-family: 'Geist', sans-serif;
-            background-color: #f8f9ff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #121318;
         }
     </style>
 </head>
@@ -42,7 +42,7 @@
     <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-secondary-container/30 rounded-full blur-3xl"></div>
 
     <div
-        class="w-full max-w-[460px] bg-white border border-outline-variant rounded-2xl shadow-xl p-8 md:p-10 relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        class="w-full max-w-[460px] bg-[#1a1b23] border border-outline-variant rounded-2xl shadow-xl p-8 md:p-10 relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <!-- Logo and header -->
         <div class="text-center mb-8">
             <h1 class="text-headline-lg font-black text-primary tracking-tight text-[36px]">Focus</h1>
@@ -82,7 +82,7 @@
                     <span
                         class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 group-focus-within:text-primary transition-colors">mail</span>
                     <input
-                        class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md bg-white outline-none transition-all"
+                        class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md bg-[#121318] outline-none transition-all"
                         id="email" type="email" name="{{ config('fortify.username') }}" placeholder="alexander.w@focus.com"
                         value="{{ old(config('fortify.username')) }}" required autofocus />
                 </div>
@@ -101,7 +101,7 @@
                     <span
                         class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 group-focus-within:text-primary transition-colors">lock</span>
                     <input
-                        class="w-full pl-10 pr-12 py-2.5 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md bg-white outline-none transition-all"
+                        class="w-full pl-10 pr-12 py-2.5 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md bg-[#121318] outline-none transition-all"
                         id="password" type="password" name="password" placeholder="••••••••" required />
                     <button type="button" id="toggle-password"
                         class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 hover:text-on-surface focus:outline-none">
