@@ -23,12 +23,10 @@ class HomeController extends Controller
         $upcomingTasks = $user->tasks()->where('is_completed', false)
             ->orderByRaw('due_date IS NULL, due_date ASC')
             ->orderByRaw('due_time IS NULL, due_time ASC')
-            ->limit(4)
-            ->get();
+            ->paginate(3);
 
         return view(
-            'tasks.dashboard'
-            ,
+            'home',
             [
                 'totalTasks' => $totalTasks,
                 'completedTasks' => $completedTasks,

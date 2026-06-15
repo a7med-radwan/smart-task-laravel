@@ -27,9 +27,9 @@
             <button
                 class="px-3 py-1 bg-error-container text-on-error-container rounded-full text-label-sm font-label-sm hover:brightness-95 transition-all">High</button>
             <button
-                class="px-3 py-1 bg-surface-variant text-on-secondary-fixed-variant rounded-full text-label-sm font-label-sm hover:brightness-95 transition-all">Medium</button>
+                class="px-3 py-1 bg-primary-container text-primary rounded-full text-label-sm font-label-sm hover:brightness-95 transition-all">Medium</button>
             <button
-                class="px-3 py-1 bg-secondary-container text-on-secondary-fixed-variant rounded-full text-label-sm font-label-sm hover:brightness-95 transition-all">Low</button>
+                class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-label-sm font-label-sm hover:brightness-95 transition-all">Low</button>
         </div>
     </div>
     <!-- Bento Layout Content -->
@@ -39,15 +39,17 @@
             <!-- Task Item 1 -->
             @foreach ($tasks as $task)
                 <div
-                    class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex items-center gap-4 hover:shadow-sm transition-all group">
+                    class="bg-surface-container border border-outline-variant rounded-xl p-4 flex items-center gap-4 hover:shadow-sm transition-all group">
 
                     <!-- Checkbox Form for Toggling Status -->
-                    <form action="{{ route('tasks.toggle', $task->id) }}" method="POST" class="m-0 p-0 flex items-center">
+                    <form action="{{ route('tasks.toggle', $task->id) }}" method="POST"
+                        class="m-0 p-0 flex items-center">
                         @csrf
                         @method('PATCH')
                         <input
                             class="task-checkbox w-5 h-5 rounded-full border-2 border-outline-variant text-secondary focus:ring-secondary cursor-pointer"
-                            id="task-{{ $task->id }}" type="checkbox" onchange="this.form.submit()" {{ $task->is_completed ? 'checked' : '' }}>
+                            id="task-{{ $task->id }}" type="checkbox" onchange="this.form.submit()"
+                            {{ $task->is_completed ? 'checked' : '' }}>
                     </form>
 
                     <div class="flex-grow">
@@ -57,24 +59,25 @@
                         <div class="flex items-center gap-4 mt-1">
                             <span class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant">
                                 <span class="material-symbols-outlined text-[14px]">calendar_today</span>
-                                {{$task->due_date}}
+                                {{ $task->due_date }}
                             </span>
                             <span class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant">
                                 <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                {{$task->due_time}}
+                                {{ $task->due_time }}
                             </span>
                         </div>
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <!-- Priority Badge -->
                         @php
                             $priorityColors = [
-                                'high' => 'bg-error-container text-on-secondary-fixed-variant',
-                                'medium' => 'bg-surface-variant text-on-secondary-fixed-variant',
-                                'low' => 'bg-secondary-container text-on-secondary-fixed-variant',
+                                'high' => 'bg-error-container text-on-error-container',
+                                'medium' => 'bg-primary-container text-primary',
+                                'low' => 'bg-secondary-container text-on-secondary-container',
                             ];
-                            $colorClass = $priorityColors[strtolower($task->priority)] ?? 'bg-surface-container text-on-secondary-fixed-variant';
+                            $colorClass =
+                                $priorityColors[strtolower($task->priority)] ??
+                                'bg-surface-container text-on-surface-variant';
                         @endphp
                         <span
                             class="px-2.5 py-1 {{ $colorClass }} rounded-lg text-label-sm font-label-sm uppercase tracking-wider mr-10 font-bold">
@@ -105,6 +108,12 @@
                     </div>
                 </div>
             @endforeach
+
+            <div class="mt-6 flex justify-center">
+                <div class="inline-flex rounded-full bg-surface-container p-3 shadow-sm">
+                    {{ $tasks->links() }}
+                </div>
+            </div>
         </div>
         <!-- Right Column (Stats & Visual) -->
         <div class="col-span-12 lg:col-span-4 space-y-gutter-desktop">
@@ -122,7 +131,8 @@
                     <div class="w-full bg-white/20 h-2 rounded-full mb-2">
                         <div class="bg-secondary-fixed h-full rounded-full" style="width: {{ $percentage }}%"></div>
                     </div>
-                    <span class="text-label-sm font-label-sm">{{ $completed }}/{{ $total }} tasks finished</span>
+                    <span class="text-label-sm font-label-sm">{{ $completed }}/{{ $total }} tasks
+                        finished</span>
                 </div>
                 <div class="absolute -right-4 -bottom-4 opacity-10">
                     <span class="material-symbols-outlined text-[120px]"
@@ -140,14 +150,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-span-5 flex justify-end mt-gutter-desktop">
-            {{ $tasks->links() }}
-        </div>
         <!-- Micro-interaction Script -->
         <script>
             // Initialize Tinymce
             document.querySelectorAll('.task-checkbox').forEach(checkbox => {
-                checkbox.addEventListener('change', function () {
+                checkbox.addEventListener('change', function() {
                     const parent = this.closest('.bg-surface-container-lowest');
                     if (this.checked) {
                         parent.classList.add('opacity-60');
