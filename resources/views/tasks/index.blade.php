@@ -269,6 +269,13 @@
                                                                 </span>
                                                             @endif
 
+                                                            @if($task->due_date)
+                                                                <span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant border border-outline-variant/60 rounded-md text-[10px] font-bold flex items-center gap-1" title="Due Date">
+                                                                    <i data-lucide="calendar" class="w-3 h-3 text-on-surface-variant"></i>
+                                                                    {{ $task->due_date }} @if($task->due_time) ({{ \Carbon\Carbon::parse($task->due_time)->format('H:i') }}) @endif
+                                                                </span>
+                                                            @endif
+
                                                             @php
                                                                 $priorityColors = [
                                                                     'high' => 'bg-error-container/20 text-error border border-error/10',

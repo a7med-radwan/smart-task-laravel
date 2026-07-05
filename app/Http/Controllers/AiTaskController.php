@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Ai\Agents\AgileBacklogAgent;
 use App\Ai\Agents\TaskBreakdownAgent;
+use App\Http\Requests\BacklogRequest;
+use App\Http\Requests\BreakdownRequest;
+use App\Http\Requests\ImportBacklogRequest;
+use App\Http\Requests\ImportTasksRequest;
 use App\Models\Sprint;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -25,13 +29,9 @@ class AiTaskController extends Controller
     /**
      * Call the AI Agent to break down a feature/idea into tasks.
      */
-    public function breakdown(Request $request)
+    public function breakdown(BreakdownRequest $request)
     {
-        $request->validate([
-            'idea' => 'required|string|min:10|max:2000',
-        ]);
-
-        $idea = $request->input('idea');
+        $idea = $request->validated('idea');
 
         try {
             // Using laravel/ai TaskBreakdownAgent
@@ -57,21 +57,12 @@ class AiTaskController extends Controller
     /**
      * Bulk import selected AI-generated tasks for the current user.
      */
-    public function importTasks(Request $request)
+    public function importTasks(ImportTasksRequest $request)
     {
-        $request->validate([
-            'tasks'                 => 'required|array|min:1',
-            'tasks.*.title'         => 'required|string|max:255',
-            'tasks.*.description'   => 'nullable|string',
-            'tasks.*.priority'      => 'required|in:high,medium,low',
-            'tasks.*.days_from_now' => 'nullable|integer',
-            'tasks.*.due_time'      => 'nullable|string',
-        ]);
-
         $userId = Auth::id();
         $count  = 0;
 
-        foreach ($request->input('tasks') as $taskData) {
+        foreach ($request->validated('tasks') as $taskData) {
             $days = isset($taskData['days_from_now']) ? (int)$taskData['days_from_now'] : 3;
             Task::create([
                 'user_id'      => $userId,
@@ -102,15 +93,10 @@ class AiTaskController extends Controller
     /**
      * Call the AI Agent to generate an Agile backlog and sprints.
      */
-    public function backlog(Request $request)
+    public function backlog(BacklogRequest $request)
     {
-        $request->validate([
-            'idea'           => 'required|string|min:10|max:2000',
-            'sprint_count'   => 'nullable|integer|min:1|max:6',
-        ]);
-
-        $idea = $request->input('idea');
-        $sprintCount = $request->input('sprint_count', 3);
+        $idea = $request->validated('idea');
+        $sprintCount = $request->validated('sprint_count') ?? 3;
 
         try {
             // Using laravel/ai AgileBacklogAgent
@@ -135,26 +121,12 @@ class AiTaskController extends Controller
     /**
      * Import all stories from a backlog as tasks.
      */
-    public function importBacklog(Request $request)
+    public function importBacklog(ImportBacklogRequest $request)
     {
-        $request->validate([
-            'tasks'                              => 'required|array|min:1',
-            'tasks.*.title'                      => 'required|string|max:255',
-            'tasks.*.description'                => 'nullable|string',
-            'tasks.*.priority'                   => 'required|in:high,medium,low',
-            'tasks.*.sprint_name'                => 'required|string|max:255',
-            'tasks.*.sprint_goal'                => 'nullable|string',
-            'tasks.*.sprint_duration_weeks'      => 'nullable|integer',
-            'tasks.*.story_points'               => 'nullable|integer',
-            'tasks.*.project_name'               => 'nullable|string|max:255',
-            'tasks.*.sprint_index'               => 'nullable|integer',
-            'tasks.*.due_time'                   => 'nullable|string',
-        ]);
-
         $userId = Auth::id();
         $count  = 0;
 
-        foreach ($request->input('tasks') as $taskData) {
+        foreach ($request->validated('tasks') as $taskData) {
             // Find or create the Sprint for this user and project
             $sprint = Sprint::firstOrCreate([
                 'user_id'      => $userId,
