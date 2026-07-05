@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="flex gap-3">
-                <a href="{{ route('profile.update') }}"
+                <a href="{{ route('profile.edit') }}"
                     class="px-5 py-2.5 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all flex items-center gap-2 shadow-sm">
                     <span class="material-symbols-outlined text-[18px]">edit</span>
                     Edit Profile

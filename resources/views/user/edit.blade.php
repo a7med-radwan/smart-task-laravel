@@ -24,7 +24,7 @@
                 @endif
             </div>
 
-            <form action="{{ route('profile.edit') }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data"
                 class="space-y-stack-lg">
                 @csrf
                 @method('PUT')

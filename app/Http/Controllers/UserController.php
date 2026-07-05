@@ -22,13 +22,13 @@ class UserController extends Controller
         return view('user.profile', compact('totalTasks', 'completedTasks', 'pendingTasks', 'progressPercentage'));
     }
 
-    public function update()
+    public function edit()
     {
         $user = Auth::user();
         return view('user.edit', ['user'=> $user]);
     }
 
-    public function edit(ProfileRequest $request, FileUpload $fileUpload)
+    public function update(ProfileRequest $request, FileUpload $fileUpload)
     {
         $user = Auth::user();
 

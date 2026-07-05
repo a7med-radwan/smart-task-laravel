@@ -25,8 +25,8 @@ Route::middleware('auth:web')->group(function () {
     // Profile
     Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
-        Route::get('/update', [UserController::class, 'update'])->name('update');
-        Route::put('/edit', [UserController::class, 'edit'])->name('edit');
+        Route::get('/edit', [UserController::class, 'edit'])->name('edit');
+        Route::put('/update', [UserController::class, 'update'])->name('update');
     });
 
     // AI Assistant
