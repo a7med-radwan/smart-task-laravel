@@ -13,14 +13,18 @@ use Laravel\Ai\Enums\Lab;
 use Laravel\Ai\Promptable;
 use Stringable;
 
+// We define which AI service provider and model to use for this agent.
+// Groq is the provider, and openai/gpt-oss-20b is the AI model name.
 #[Provider(Lab::Groq)]
 #[Model('openai/gpt-oss-20b')]
 class TaskBreakdownAgent implements Agent, Conversational, HasStructuredOutput, HasTools
 {
+    // The Promptable trait allows this class to be run with a prompt directly, e.g. Agent::make()->prompt(...)
     use Promptable;
 
     /**
      * Get the instructions that the agent should follow.
+     * These system instructions guide the AI on how to behave (e.g., act as a Project Manager).
      */
     public function instructions(): Stringable|string
     {
@@ -45,10 +49,12 @@ class TaskBreakdownAgent implements Agent, Conversational, HasStructuredOutput, 
 
     /**
      * Get the agent's structured output schema definition.
+     * This forces the AI to respond in a strict JSON format that matches this array schema.
      */
     public function schema(JsonSchema $schema): array
     {
         return [
+            // The AI must return a key 'tasks' which contains an array of objects.
             'tasks' => $schema->array()->items(
                 $schema->object([
                     'title' => $schema->string()->required(),

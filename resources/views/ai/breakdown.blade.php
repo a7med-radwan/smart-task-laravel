@@ -216,6 +216,7 @@
 
     <script>
         // ── Loading state ──
+        // When the breakdown request form is submitted, show the overlay spinner and disable submit inputs
         document.getElementById('breakdown-form').addEventListener('submit', function () {
             document.getElementById('loading-overlay').classList.remove('hidden');
             document.getElementById('submit-btn').disabled = true;
@@ -223,13 +224,16 @@
         });
 
         // ── Task selection toggle ──
+        // Toggles selection checkmark and highlights a card when clicking a task breakdown checkbox
         function toggleTask(index) {
             const checkbox = document.getElementById('task-check-' + index);
             const visualCheck = document.getElementById('visual-check-' + index);
             const card = visualCheck.closest('.task-card');
 
+            // Swap checkbox checked boolean state
             checkbox.checked = !checkbox.checked;
 
+            // Update border visual highlights and fill background color
             if (checkbox.checked) {
                 visualCheck.classList.add('bg-primary', 'border-primary');
                 visualCheck.classList.remove('bg-transparent', 'border-outline-variant');
@@ -242,12 +246,14 @@
             updateCount();
         }
 
+        // Calculates count of checked checkboxes and updates footer indicator text
         function updateCount() {
             const checked = document.querySelectorAll('.task-checkbox:checked').length;
             document.getElementById('selected-count').textContent = checked;
         }
 
         // ── Select / Deselect all ──
+        // Helper triggers to check or uncheck all generated items at once
         document.getElementById('select-all-btn')?.addEventListener('click', function () {
             document.querySelectorAll('.task-checkbox').forEach((cb, i) => {
                 if (!cb.checked) toggleTask(i);
@@ -261,6 +267,7 @@
         });
 
         // ── Prevent import if nothing selected ──
+        // Guards against submitting empty imports to the database
         document.getElementById('import-form')?.addEventListener('submit', function (e) {
             const count = document.querySelectorAll('.task-checkbox:checked').length;
             if (count === 0) {
@@ -270,6 +277,7 @@
         });
 
         // ── Entry animation ──
+        // Adds smooth slide-in fading transition to the AI tasks container on page load
         document.addEventListener('DOMContentLoaded', () => {
             const section = document.getElementById('results-section');
             if (section) {

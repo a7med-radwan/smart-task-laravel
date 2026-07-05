@@ -484,14 +484,15 @@
 
     <!-- Interactive script for simulation and theme toggle -->
     <script>
-        // Lucide init
+        // Lucide init: Renders visual SVG icons automatically from 'data-lucide' attributes
         lucide.createIcons();
 
-        // Theme Toggle script
+        // Theme Toggle script: Toggles the '.dark' class on the document node to shift variables
         const themeToggleBtn = document.getElementById('theme-toggle');
         const sunIcon = document.getElementById('sun-icon');
         const moonIcon = document.getElementById('moon-icon');
 
+        // Show/hide sun or moon icon based on whether dark theme class is present
         function updateThemeIcons() {
             if (document.documentElement.classList.contains('dark')) {
                 sunIcon.classList.remove('hidden');
@@ -504,6 +505,7 @@
 
         updateThemeIcons();
 
+        // Save theme selection in localStorage so it persists across page loads
         themeToggleBtn.addEventListener('click', () => {
             if (document.documentElement.classList.contains('dark')) {
                 document.documentElement.classList.remove('dark');
@@ -515,7 +517,7 @@
             updateThemeIcons();
         });
 
-        // Simulation script
+        // Simulation mock data structure: Holds predefined project templates for the interactive visual generator
         const prompts = {
             fitness: {
                 text: "I want to build a fitness tracking app with workouts and a dashboard.",
@@ -552,8 +554,11 @@
             }
         };
 
+        /**
+         * Simulates AI Task Generation on the landing page mockup in real-time.
+         */
         function runSimulation(key) {
-            // Update active buttons styling
+            // Update selected buttons highlights in the templates switcher bar
             const buttons = document.querySelectorAll('.sim-btn');
             buttons.forEach(btn => {
                 btn.className = "sim-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors";
@@ -562,22 +567,25 @@
 
             const data = prompts[key];
 
-            // Set loading state
+            // Set visual loading state and opacity to mimic AI query latency
             document.getElementById('user-prompt').textContent = data.text;
             document.getElementById('ai-output').style.opacity = '0.3';
             document.getElementById('ai-loading').classList.remove('hidden');
 
+            // Trigger data bindings after 1 second delay to simulate AI response
             setTimeout(() => {
                 document.getElementById('ai-loading').classList.add('hidden');
                 document.getElementById('ai-output').style.opacity = '1';
 
-                // Bind data
+                // Inject mock Sprint metadata
                 document.getElementById('sprint-name').textContent = data.sprint;
                 document.getElementById('sprint-goal').textContent = data.goal;
 
+                // Clear previous task cards
                 const listContainer = document.getElementById('tasks-list');
                 listContainer.innerHTML = '';
 
+                // Build task nodes dynamically and append to simulation wrapper
                 data.tasks.forEach(task => {
                     const priorityClass = task.priority === 'High' ? 'bg-red-500/10 text-red-500' : 'bg-amber-500/10 text-amber-500';
                     const html = `
@@ -597,7 +605,7 @@
             }, 1000);
         }
 
-        // Run default simulation
+        // Run default simulation on page load
         runSimulation('fitness');
     </script>
 </body>

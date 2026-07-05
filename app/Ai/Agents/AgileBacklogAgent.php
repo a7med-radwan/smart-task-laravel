@@ -13,14 +13,18 @@ use Laravel\Ai\Enums\Lab;
 use Laravel\Ai\Promptable;
 use Stringable;
 
+// We define which AI service provider and model to use for this agent.
+// Groq is the provider, and openai/gpt-oss-20b is the AI model name.
 #[Provider(Lab::Groq)]
 #[Model('openai/gpt-oss-20b')]
 class AgileBacklogAgent implements Agent, Conversational, HasStructuredOutput, HasTools
 {
+    // The Promptable trait allows this class to be run with a prompt directly, e.g. Agent::make()->prompt(...)
     use Promptable;
 
     /**
      * Get the instructions that the agent should follow.
+     * These system instructions guide the AI to act as an Agile project manager.
      */
     public function instructions(): Stringable|string
     {
@@ -45,10 +49,12 @@ class AgileBacklogAgent implements Agent, Conversational, HasStructuredOutput, H
 
     /**
      * Get the agent's structured output schema definition.
+     * This forces the AI to output the Agile backlog in a strict JSON format matching this array structure.
      */
     public function schema(JsonSchema $schema): array
     {
         return [
+            // The AI must return a project title and an array of sprints.
             'project_title' => $schema->string()->required(),
             'sprints' => $schema->array()->items(
                 $schema->object([
