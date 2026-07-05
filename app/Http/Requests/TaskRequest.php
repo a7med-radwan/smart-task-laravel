@@ -30,6 +30,8 @@ class TaskRequest extends FormRequest
             'due_date' => 'nullable|date',
             'due_time' => 'nullable|string',
             'priority' => 'required|in:high,medium,low',
+            'sprint_id' => 'nullable|exists:sprints,id',
+            'story_points' => 'nullable|integer|min:0',
         ];
     }
 }

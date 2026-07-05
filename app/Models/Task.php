@@ -17,11 +17,18 @@ class Task extends Model
         'due_date',
         'due_time',
         'priority',
+        'sprint_id',
+        'story_points',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function sprint(): BelongsTo
+    {
+        return $this->belongsTo(Sprint::class);
     }
 
     public function description(): Attribute

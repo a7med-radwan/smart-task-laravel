@@ -40,6 +40,14 @@ class User extends Authenticatable
         return $this->hasMany(Task::class, 'user_id', 'id');
     }
 
+    /**
+     * Get the sprints owned by this user.
+     */
+    public function sprints(): HasMany
+    {
+        return $this->hasMany(Sprint::class);
+    }
+
     public function avatarUrl(): Attribute
     {
         return new Attribute(

@@ -65,6 +65,36 @@
                     </div>
                 </div>
 
+                <!-- Grid for Sprint and Story Points -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+                    <!-- Sprint Selection -->
+                    <div>
+                        <label class="font-label-md text-label-md text-on-surface-variant block mb-stack-sm"
+                            for="sprint_id">Assigned Sprint</label>
+                        <select
+                            class="w-full px-4 py-2.5 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container font-body-md text-body-md bg-surface-container outline-none transition-all text-on-surface"
+                            id="sprint_id" name="sprint_id">
+                            <option value="">Unassigned / No Sprint</option>
+                            @if(isset($sprints))
+                                @foreach($sprints as $sprintOption)
+                                    <option value="{{ $sprintOption->id }}" {{ old('sprint_id', $task->sprint_id) == $sprintOption->id ? 'selected' : '' }}>
+                                        {{ $sprintOption->name }}
+                                    </option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+                    <!-- Story Points -->
+                    <div>
+                        <label class="font-label-md text-label-md text-on-surface-variant block mb-stack-sm"
+                            for="story_points">Story Points</label>
+                        <input
+                            class="w-full px-4 py-2.5 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container font-body-md text-body-md bg-surface-container outline-none transition-all text-on-surface"
+                            id="story_points" type="number" min="0" max="100" placeholder="e.g. 1, 2, 3, 5, 8"
+                            value="{{ old('story_points', $task->story_points) }}" name="story_points" />
+                    </div>
+                </div>
+
                 <!-- Priority -->
                 <div>
                     <label

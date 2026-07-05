@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <script>
-        (function() {
+        (function () {
             const currentTheme = localStorage.getItem('theme') || 'dark';
             if (currentTheme === 'dark') {
                 document.documentElement.classList.add('dark');
@@ -16,6 +16,7 @@
     </script>
     <title>{{ $title }}</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet">
@@ -145,103 +146,103 @@
     </script>
     <style>
         :root {
-            --on-tertiary-fixed: #2a1700;
-            --surface-bright: #fcfdff;
+            --on-tertiary-fixed: #1e1b4b;
+            --surface-bright: #f8fafc;
             --on-secondary: #ffffff;
-            --surface-dim: #e2e4e9;
-            --surface-container: #f1f3f9;
+            --surface-dim: #e2e8f0;
+            --surface-container: #f1f5f9;
             --on-primary: #ffffff;
-            --secondary-fixed: #34d399;
+            --secondary-fixed: #0ea5e9;
             --surface-container-lowest: #ffffff;
-            --tertiary-fixed-dim: #ffb95f;
+            --tertiary-fixed-dim: #fdba74;
             --tertiary: #d97706;
-            --inverse-primary: #6d28d9;
-            --on-primary-container: #5b21b6;
+            --inverse-primary: #38bdf8;
+            --on-primary-container: #0369a1;
             --surface-container-low: #f8fafc;
-            --secondary: #059669;
-            --primary-fixed-dim: #c3c0ff;
+            --secondary: #6366f1;
+            --primary-fixed-dim: #bae6fd;
             --on-tertiary: #ffffff;
-            --on-surface-variant: #4b5563;
-            --error: #e11d48;
-            --primary-fixed: #e2dfff;
+            --on-surface-variant: #475569;
+            --error: #ef4444;
+            --primary-fixed: #e0f2fe;
             --inverse-on-surface: #ffffff;
-            --on-primary-fixed: #0f0069;
-            --on-secondary-fixed: #002113;
-            --on-secondary-container: #065f46;
-            --outline-variant: #e5e7eb;
-            --surface-tint: #6d28d9;
-            --secondary-fixed-dim: #34d399;
-            --primary: #6d28d9;
-            --tertiary-fixed: #ffddb8;
-            --background: #f4f6fa;
-            --surface-variant: #e2e6f0;
+            --on-primary-fixed: #0369a1;
+            --on-secondary-fixed: #0c4a6e;
+            --on-secondary-container: #0369a1;
+            --outline-variant: #e2e8f0;
+            --surface-tint: #0284c7;
+            --secondary-fixed-dim: #38bdf8;
+            --primary: #0284c7;
+            --tertiary-fixed: #ffedd5;
+            --background: #f8fafc;
+            --surface-variant: #f1f5f9;
             --on-error: #ffffff;
             --on-tertiary-container: #92400e;
-            --error-container: #ffe4e6;
-            --on-surface: #1f2937;
-            --surface-container-highest: #e2e6f0;
-            --on-error-container: #9f1239;
-            --surface-container-high: #eef1f6;
-            --on-secondary-fixed-variant: #047857;
+            --error-container: #fee2e2;
+            --on-surface: #0f172a;
+            --surface-container-highest: #cbd5e1;
+            --on-error-container: #991b1b;
+            --surface-container-high: #e2e8f0;
+            --on-secondary-fixed-variant: #0369a1;
             --tertiary-container: #fef3c7;
-            --primary-container: #ede9fe;
+            --primary-container: #e0f2fe;
             --surface: #ffffff;
-            --inverse-surface: #1a1b23;
-            --on-primary-fixed-variant: #8b5cf6;
-            --on-tertiary-fixed-variant: #653e00;
-            --outline: #9ca3af;
-            --on-background: #1f2937;
-            --secondary-container: #d1fae5;
+            --inverse-surface: #090d16;
+            --on-primary-fixed-variant: #0284c7;
+            --on-tertiary-fixed-variant: #78350f;
+            --outline: #94a3b8;
+            --on-background: #0f172a;
+            --secondary-container: #e0f2fe;
         }
 
         html.dark {
-            --on-tertiary-fixed: #2a1700;
-            --surface-bright: #22242f;
-            --on-secondary: #121318;
-            --surface-dim: #121318;
-            --surface-container: #1a1b23;
-            --on-primary: #121318;
-            --secondary-fixed: #34d399;
-            --surface-container-lowest: #0e0f14;
-            --tertiary-fixed-dim: #ffb95f;
-            --tertiary: #ffb95f;
-            --inverse-primary: #c3c0ff;
-            --on-primary-container: #ede9fe;
-            --surface-container-low: #15161d;
-            --secondary: #34d399;
-            --primary-fixed-dim: #c3c0ff;
-            --on-tertiary: #ffffff;
-            --on-surface-variant: #8a8d98;
-            --error: #fb7185;
-            --primary-fixed: #e2dfff;
-            --inverse-on-surface: #121318;
-            --on-primary-fixed: #0f0069;
-            --on-secondary-fixed: #002113;
-            --on-secondary-container: #a7f3d0;
-            --outline-variant: #262936;
-            --surface-tint: #a78bfa;
-            --secondary-fixed-dim: #34d399;
-            --primary: #a78bfa;
-            --tertiary-fixed: #ffddb8;
-            --background: #121318;
-            --surface-variant: #22242f;
+            --on-tertiary-fixed: #ffedd5;
+            --surface-bright: #161e2b;
+            --on-secondary: #0f1219;
+            --surface-dim: #0f1219;
+            --surface-container: #1f293b;
+            --on-primary: #0f1219;
+            --secondary-fixed: #38bdf8;
+            --surface-container-lowest: #0b0d12;
+            --tertiary-fixed-dim: #fdba74;
+            --tertiary: #fbbf24;
+            --inverse-primary: #0284c7;
+            --on-primary-container: #dbeafe;
+            --surface-container-low: #121824;
+            --secondary: #818cf8;
+            --primary-fixed-dim: #1e3a8a;
+            --on-tertiary: #0f1219;
+            --on-surface-variant: #94a3b8;
+            --error: #f87171;
+            --primary-fixed: #e0f2fe;
+            --inverse-on-surface: #0f1219;
+            --on-primary-fixed: #dbeafe;
+            --on-secondary-fixed: #0c4a6e;
+            --on-secondary-container: #e0f2fe;
+            --outline-variant: #222e40;
+            --surface-tint: #38bdf8;
+            --secondary-fixed-dim: #38bdf8;
+            --primary: #38bdf8;
+            --tertiary-fixed: #ffedd5;
+            --background: #0f1219;
+            --surface-variant: #1f293b;
             --on-error: #ffffff;
-            --on-tertiary-container: #ffd4a4;
-            --error-container: #881337;
-            --on-surface: #e2e4e9;
-            --surface-container-highest: #2c2e3c;
-            --on-error-container: #fecdd3;
-            --surface-container-high: #22242f;
-            --on-secondary-fixed-variant: #34d399;
-            --tertiary-container: #885500;
-            --primary-container: #6d28d9;
-            --surface: #1a1b23;
-            --inverse-surface: #e2e4e9;
-            --on-primary-fixed-variant: #8b5cf6;
-            --on-tertiary-fixed-variant: #653e00;
-            --outline: #4c4f5d;
-            --on-background: #e2e4e9;
-            --secondary-container: #064e3b;
+            --on-tertiary-container: #fef3c7;
+            --error-container: #7f1d1d;
+            --on-surface: #e2e8f0;
+            --surface-container-highest: #2e3f5b;
+            --on-error-container: #fee2e2;
+            --surface-container-high: #243249;
+            --on-secondary-fixed-variant: #38bdf8;
+            --tertiary-container: #78350f;
+            --primary-container: #172554;
+            --surface: #161e2b;
+            --inverse-surface: #e2e8f0;
+            --on-primary-fixed-variant: #38bdf8;
+            --on-tertiary-fixed-variant: #fdba74;
+            --outline: #2d3d54;
+            --on-background: #e2e8f0;
+            --secondary-container: #0c4a6e;
         }
 
         body {
@@ -252,10 +253,28 @@
         }
 
         .glass-card {
-            background-color: var(--surface);
-            border: 1px solid var(--outline-variant);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(226, 232, 240, 0.8);
             backdrop-filter: blur(12px);
             transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .dark .glass-card {
+            background-color: rgba(17, 22, 37, 0.7);
+            border: 1px solid rgba(30, 41, 59, 0.8);
+        }
+
+        .hover-glow {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(14, 165, 144, 0.15), 0 8px 10px -6px rgba(14, 165, 144, 0.15);
+        }
+
+        .dark .hover-glow:hover {
+            box-shadow: 0 10px 25px -5px rgba(45, 212, 191, 0.25), 0 8px 10px -6px rgba(45, 212, 191, 0.25);
         }
 
         .material-symbols-outlined {
@@ -297,57 +316,103 @@
 
     <!-- Side Navigation Shell -->
     <aside id="sidebar"
-        class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-dim shadow-sm flex flex-col py-stack-lg px-stack-md z-50 -translate-x-full lg:translate-x-0 transition-transform duration-300">
-        <div class="mb-10 px-stack-sm flex items-center justify-between">
-            <div>
-                <h1 class="text-headline-md font-headline-md font-black text-primary dark:text-primary-fixed-dim">Focus
-                </h1>
-                <p class="text-label-md font-label-md text-on-surface-variant">Productivity Workspace</p>
+        class="h-screen w-64 fixed left-0 top-0 bg-white dark:bg-[#0f1219] border-r border-outline-variant dark:border-outline/40 flex flex-col py-6 px-4 z-50 -translate-x-full lg:translate-x-0 transition-transform duration-300">
+
+        <!-- Workspace Switcher Branding -->
+        <div class="mb-6 px-2">
+            <div
+                class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 dark:bg-[#161e2b] border border-slate-200/60 dark:border-[#2d3d54]/60 shadow-sm">
+                <div
+                    class="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-[#6366f1] text-white flex items-center justify-center font-black text-sm shadow-sm shrink-0">
+                    S
+                </div>
+                <div class="flex-grow min-w-0">
+                    <p class="text-xs font-bold text-on-surface truncate leading-tight">SmartTask</p>
+                    <p class="text-[10px] font-semibold text-on-surface-variant/70 truncate leading-none mt-0.5">
+                        Workspace</p>
+                </div>
+                <i data-lucide="chevrons-up-down" class="w-4 h-4 text-on-surface-variant/60 shrink-0"></i>
             </div>
-            <!-- Close button for mobile sidebar -->
-            <button id="sidebar-close"
-                class="lg:hidden p-1 rounded-lg hover:bg-surface-container text-on-surface-variant transition-colors">
-                <span class="material-symbols-outlined">close</span>
-            </button>
         </div>
-        <nav class="flex-grow space-y-1">
-            <a class="flex items-center px-4 py-3 {{ request()->routeIs('dashboard') ? 'text-primary font-bold bg-surface-container-highest' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container' }} rounded-lg transition-all duration-200 group"
+
+        <!-- Navigation Links -->
+        <nav class="flex-grow space-y-1 overflow-y-auto custom-scrollbar pr-1">
+            <span
+                class="px-3 text-[10px] font-bold text-on-surface-variant/40 uppercase tracking-widest block mb-2 mt-4">Main
+                Menu</span>
+
+            <a class="flex items-center px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 {{ request()->routeIs('dashboard') ? 'bg-primary/10 text-primary' : 'text-on-surface-variant hover:text-on-surface hover:bg-slate-50 dark:hover:bg-[#161e2b]/65' }} group"
                 href="{{ route('dashboard') }}">
-                <span class="material-symbols-outlined mr-3">dashboard</span>
-                <span class="font-label-md text-label-md">Dashboard</span>
+                <i data-lucide="layout-dashboard" class="w-5 h-5 mr-3 shrink-0"></i>
+                <span>Dashboard</span>
             </a>
-            <a class="flex items-center px-4 py-3 {{ request()->routeIs('tasks.index') ? 'text-primary font-bold bg-surface-container-highest' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container' }} rounded-lg transition-all duration-200"
+
+            <a class="flex items-center px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 {{ request()->routeIs('tasks.*') ? 'bg-primary/10 text-primary' : 'text-on-surface-variant hover:text-on-surface hover:bg-slate-50 dark:hover:bg-[#161e2b]/65' }} group"
                 href="{{ route('tasks.index') }}">
-                <span class="material-symbols-outlined mr-3">format_list_bulleted</span>
-                <span class="font-label-md text-label-md">Task List</span>
+                <i data-lucide="check-square" class="w-5 h-5 mr-3 shrink-0"></i>
+                <span>Task List</span>
             </a>
-            <a class="flex items-center px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all duration-200 rounded-lg group"
-                href="#">
-                <span class="material-symbols-outlined mr-3">calendar_month</span>
-                <span class="font-label-md text-label-md">Calendar</span>
-            </a>
-            <a class="flex items-center px-4 py-3 {{ request()->routeIs('profile.index') ? 'text-primary font-bold bg-surface-container-highest' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container' }} rounded-lg transition-all duration-200 group"
+
+            <a class="flex items-center px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 {{ request()->routeIs('profile.index') ? 'bg-primary/10 text-primary' : 'text-on-surface-variant hover:text-on-surface hover:bg-slate-50 dark:hover:bg-[#161e2b]/65' }} group"
                 href="{{ route('profile.index') }}">
-                <span class="material-symbols-outlined mr-3">person</span>
-                <span class="font-label-md text-label-md">Profile</span>
+                <i data-lucide="user" class="w-5 h-5 mr-3 shrink-0"></i>
+                <span>Profile</span>
+            </a>
+
+            {{-- AI Section --}}
+            <div class="pt-5 pb-1">
+                <span
+                    class="px-3 text-[10px] font-bold text-on-surface-variant/40 uppercase tracking-widest block mb-2">AI
+                    Assistants</span>
+            </div>
+
+            <a class="flex items-center px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 {{ request()->routeIs('ai.breakdown*') ? 'bg-primary/10 text-primary' : 'text-on-surface-variant hover:text-on-surface hover:bg-slate-50 dark:hover:bg-[#161e2b]/65' }} group"
+                href="{{ route('ai.breakdown.show') }}">
+                <i data-lucide="sparkles" class="w-5 h-5 mr-3 shrink-0"></i>
+                <span>Task Breakdown</span>
+                <span
+                    class="ml-auto px-1.5 py-0.5 bg-primary/15 text-primary rounded text-[9px] font-bold uppercase tracking-wider">AI</span>
+            </a>
+
+            <a class="flex items-center px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 {{ request()->routeIs('ai.backlog*') ? 'bg-secondary/15 text-secondary' : 'text-on-surface-variant hover:text-on-surface hover:bg-slate-50 dark:hover:bg-[#161e2b]/65' }} group"
+                href="{{ route('ai.backlog.show') }}">
+                <i data-lucide="kanban" class="w-5 h-5 mr-3 shrink-0"></i>
+                <span>Agile Backlog</span>
+                <span
+                    class="ml-auto px-1.5 py-0.5 bg-secondary/15 text-secondary rounded text-[9px] font-bold uppercase tracking-wider">AI</span>
             </a>
         </nav>
-        <a href="{{ route('tasks.create') }}"
-            class="mb-20 mx-2 bg-primary text-on-primary py-3 px-4 rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 cursor-pointer active:scale-95 transition-transform">
-            <span class="material-symbols-outlined text-[18px]">add</span>
-            Create Task
-        </a>
 
-        <div class="border-t border-outline-variant my-1"></div>
-        <a href="{{ route('logout') }}"
-            class="flex items-center px-4 py-2 text-body-md text-error hover:bg-error-container/10 transition-colors"
-            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <span class="material-symbols-outlined mr-2 text-[18px]">logout</span>
-            Logout
-        </a>
-        <form id="logout-form" action="http://127.0.0.1:8000/auth/logout" method="POST" class="hidden">
-            <input type="hidden" name="_token" value="0QsthG9xzS8U7APlWTbOSOcQEnz8F5C7IqSm78cJ" autocomplete="off">
-        </form>
+        <!-- Bottom User Card & Quick Action -->
+        <div class="pt-4 border-t border-slate-200/60 dark:border-outline-variant/60 space-y-3 mt-auto">
+            <a href="{{ route('tasks.create') }}"
+                class="w-full bg-gradient-to-r from-primary to-[#6366f1] text-white py-2.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-primary/10 hover:shadow-primary/20 active:scale-[0.98] transition-all cursor-pointer">
+                <i data-lucide="plus-circle" class="w-5 h-5 shrink-0"></i>
+                Create Task
+            </a>
+
+            <!-- User Info Profile Card -->
+            <div
+                class="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-[#161e2b]/65 transition-colors">
+                <img class="w-8 h-8 rounded-full border border-slate-200 dark:border-outline-variant object-cover shadow-sm"
+                    src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}">
+                <div class="flex-1 min-w-0">
+                    <p class="text-xs font-bold text-on-surface truncate leading-tight">{{ auth()->user()->name }}</p>
+                    <p class="text-[9.5px] font-semibold text-on-surface-variant/70 truncate leading-none mt-0.5">
+                        {{ auth()->user()->email }}</p>
+                </div>
+                <!-- Logout Trigger -->
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                    class="p-1.5 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/10 transition-colors"
+                    title="Logout">
+                    <i data-lucide="log-out" class="w-4 h-4 shrink-0"></i>
+                </a>
+            </div>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                @csrf
+            </form>
+        </div>
     </aside>
 
     <!-- Main Content Area -->
@@ -359,19 +424,28 @@
                 <!-- Hamburger menu for mobile -->
                 <button id="sidebar-toggle"
                     class="lg:hidden p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
-                    <span class="material-symbols-outlined">menu</span>
+                    <i data-lucide="menu" class="w-5 h-5"></i>
                 </button>
-                <div class="relative w-full max-w-md">
-                    <span
-                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <form action="{{ route('tasks.index') }}" method="GET" class="relative w-full max-w-md m-0 p-0">
+                    <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-on-surface-variant"></i>
                     <input
+                        name="search"
+                        value="{{ request('search') }}"
                         class="w-full bg-surface-container-low border border-outline-variant rounded-full py-2 pl-10 pr-4 text-body-md focus:outline-none focus:border-primary transition-all"
-                        placeholder="Search tasks, tags, or projects..." type="text">
-                </div>
+                        placeholder="Search tasks, descriptions..." type="text">
+                </form>
             </div>
             <div class="flex items-center gap-stack-lg ml-gutter-desktop">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle-btn"
+                    class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer focus:outline-none">
+                    <i id="theme-toggle-icon" data-lucide="moon" class="w-5 h-5"></i>
+                </button>
+
                 <button
-                    class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer">notifications</button>
+                    class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer focus:outline-none">
+                    <i data-lucide="bell" class="w-5 h-5"></i>
+                </button>
 
                 <!-- Profile Dropdown Container -->
                 <div class="relative">
@@ -380,8 +454,7 @@
                         <img alt="User"
                             class="w-8 h-8 rounded-full border border-outline-variant object-cover shadow-sm transition-transform duration-200 hover:scale-105"
                             src="{{ auth()->user()->avatar_url }}">
-                        <span
-                            class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[18px]">keyboard_arrow_down</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-on-surface-variant group-hover:text-primary transition-colors shrink-0"></i>
                     </button>
                     <!-- Dropdown Menu -->
                     <div id="profile-dropdown"
@@ -392,14 +465,14 @@
                         </div>
                         <a href="{{ route('profile.index') }}"
                             class="flex items-center px-4 py-2 text-body-md text-on-surface hover:bg-surface-container transition-colors">
-                            <span class="material-symbols-outlined mr-2 text-[18px]">person</span>
+                            <i data-lucide="user" class="w-4 h-4 mr-2"></i>
                             My Profile
                         </a>
                         <div class="border-t border-outline-variant my-1"></div>
                         <a href="{{ route('logout') }}"
                             class="flex items-center px-4 py-2 text-body-md text-error hover:bg-error-container/10 transition-colors"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <span class="material-symbols-outlined mr-2 text-[18px]">logout</span>
+                            <i data-lucide="log-out" class="w-4 h-4 mr-2 text-error"></i>
                             Logout
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
@@ -410,6 +483,21 @@
             </div>
         </header>
         <div class="px-gutter-desktop py-stack-lg max-w-container-max mx-auto">
+            {{-- Flash success message --}}
+            @if (session('success'))
+                <div x-data="{ show: true }" x-show="show"
+                    class="mb-6 flex items-center justify-between gap-3 p-4 bg-secondary-container text-on-secondary-container rounded-xl border border-secondary/20 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined shrink-0"
+                            style="font-variation-settings:'FILL' 1">task_alt</span>
+                        <p class="font-body-md text-body-md font-bold">{{ session('success') }}</p>
+                    </div>
+                    <button onclick="this.parentElement.style.display='none'"
+                        class="shrink-0 text-on-secondary-container/70 hover:text-on-secondary-container transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">close</span>
+                    </button>
+                </div>
+            @endif
             {{ $slot }}
         </div>
     </main>
@@ -480,6 +568,31 @@
                         profileDropdown.classList.add('hidden');
                     }, 150);
                 }
+            });
+        }
+
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Theme Toggle Functionality
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const themeToggleIcon = document.getElementById('theme-toggle-icon');
+        if (themeToggleBtn && themeToggleIcon) {
+            const isDark = document.documentElement.classList.contains('dark');
+            themeToggleIcon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+            lucide.createIcons();
+            
+            themeToggleBtn.addEventListener('click', () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                    themeToggleIcon.setAttribute('data-lucide', 'moon');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggleIcon.setAttribute('data-lucide', 'sun');
+                }
+                lucide.createIcons();
             });
         }
     </script>

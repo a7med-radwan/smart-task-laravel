@@ -8,7 +8,7 @@
                         <p class="font-body-md text-body-md text-on-surface-variant mt-2">Update your account details and
                             avatar.</p>
                     </div>
-                    <a href="{{ route('profile') }}"
+                    <a href="{{ route('profile.index') }}"
                         class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-all">Back
                         to profile</a>
                 </div>
@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="pt-stack-md flex flex-col sm:flex-row items-center justify-end gap-stack-md">
-                    <a href="{{ route('profile') }}"
+                    <a href="{{ route('profile.index') }}"
                         class="w-full sm:w-auto px-6 py-2.5 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-colors text-center">Cancel</a>
                     <button type="submit"
                         class="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-primary text-white font-bold hover:opacity-90 active:scale-95 transition-all">Save

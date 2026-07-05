@@ -1,4 +1,4 @@
-<x-layout title="Focus - Dashboard">
+<x-layout title="SmartTask - Dashboard">
     <!-- Hero Welcoming Section -->
     <section class="mb-stack-lg animate-fade-in">
         <div class="flex flex-col md:flex-row justify-between items-end gap-stack-md">
@@ -188,6 +188,35 @@
                             <p class="text-body-md font-bold">Profile Settings</p>
                             <p class="text-label-sm text-on-surface-variant">Manage your account profile</p>
                         </div>
+                    </a>
+
+                    <div class="border-t border-outline-variant my-1"></div>
+                    <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest opacity-60 px-1">AI Assistant</p>
+
+                    <a href="{{ route('ai.breakdown.show') }}"
+                        class="w-full flex items-center gap-3 p-3 rounded-lg border border-outline-variant hover:bg-surface-container-high transition-all">
+                        <div
+                            class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">auto_awesome</span>
+                        </div>
+                        <div>
+                            <p class="text-body-md font-bold">AI Task Breakdown</p>
+                            <p class="text-label-sm text-on-surface-variant">Break ideas into actionable tasks</p>
+                        </div>
+                        <span class="ml-auto px-1.5 py-0.5 bg-primary/10 text-primary rounded text-[9px] font-bold uppercase tracking-wider shrink-0">AI</span>
+                    </a>
+
+                    <a href="{{ route('ai.backlog.show') }}"
+                        class="w-full flex items-center gap-3 p-3 rounded-lg border border-outline-variant hover:bg-surface-container-high transition-all">
+                        <div
+                            class="w-8 h-8 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">sprint</span>
+                        </div>
+                        <div>
+                            <p class="text-body-md font-bold">Agile Backlog</p>
+                            <p class="text-label-sm text-on-surface-variant">Generate sprints & user stories</p>
+                        </div>
+                        <span class="ml-auto px-1.5 py-0.5 bg-secondary/10 text-secondary rounded text-[9px] font-bold uppercase tracking-wider shrink-0">AI</span>
                     </a>
                 </div>
             </div>

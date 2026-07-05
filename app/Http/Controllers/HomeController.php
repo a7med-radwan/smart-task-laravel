@@ -23,7 +23,7 @@ class HomeController extends Controller
         $upcomingTasks = $user->tasks()->where('is_completed', false)
             ->orderByRaw('due_date IS NULL, due_date ASC')
             ->orderByRaw('due_time IS NULL, due_time ASC')
-            ->paginate(3);
+            ->paginate(8);
 
         return view(
             'home',

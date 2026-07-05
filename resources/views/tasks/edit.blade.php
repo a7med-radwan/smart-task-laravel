@@ -1,4 +1,4 @@
-<x-layout title="Focus - Edit Task">
+<x-layout title="SmartTask - Edit Task">
     @include('tasks._form', [
         'task' => $task,
         'action' => route('tasks.update', $task->id),

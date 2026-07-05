@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Focus - Sign In</title>
+    <title>SmartTask - Sign In</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -17,12 +17,12 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: "#a78bfa",
-                        "on-surface": "#e2e4e9",
-                        "on-surface-variant": "#8a8d98",
-                        "outline-variant": "#262936",
-                        background: "#121318",
-                        surface: "#1a1b23",
+                        primary: "#38bdf8",
+                        "on-surface": "#e2e8f0",
+                        "on-surface-variant": "#94a3b8",
+                        "outline-variant": "#222e40",
+                        background: "#0f1219",
+                        surface: "#161e2b",
                     }
                 }
             }
@@ -31,7 +31,7 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #121318;
+            background-color: #0f1219;
         }
     </style>
 </head>
@@ -42,10 +42,10 @@
     <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-secondary-container/30 rounded-full blur-3xl"></div>
 
     <div
-        class="w-full max-w-[460px] bg-[#1a1b23] border border-outline-variant rounded-2xl shadow-xl p-8 md:p-10 relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        class="w-full max-w-[460px] bg-surface border border-outline-variant rounded-2xl shadow-xl p-8 md:p-10 relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <!-- Logo and header -->
         <div class="text-center mb-8">
-            <h1 class="text-headline-lg font-black text-primary tracking-tight text-[36px]">Focus</h1>
+            <h1 class="text-headline-lg font-black text-primary tracking-tight text-[36px]">SmartTask</h1>
             <p class="text-body-lg text-on-surface-variant mt-2">Sign in to your productivity workspace</p>
         </div>
 

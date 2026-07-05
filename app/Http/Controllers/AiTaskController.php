@@ -1,0 +1,176 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Ai\Agents\AgileBacklogAgent;
+use App\Ai\Agents\TaskBreakdownAgent;
+use App\Models\Sprint;
+use App\Models\Task;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
+class AiTaskController extends Controller
+{
+    // ─── Task Breakdown ──────────────────────────────────────────────
+
+    /**
+     * Show the AI Task Breakdown form.
+     */
+    public function showBreakdown()
+    {
+        return view('ai.breakdown');
+    }
+
+    /**
+     * Call the AI Agent to break down a feature/idea into tasks.
+     */
+    public function breakdown(Request $request)
+    {
+        $request->validate([
+            'idea' => 'required|string|min:10|max:2000',
+        ]);
+
+        $idea = $request->input('idea');
+
+        try {
+            // Using laravel/ai TaskBreakdownAgent
+            $response = TaskBreakdownAgent::make()->prompt($idea);
+            $data = $response->toArray();
+            $tasks = $data['tasks'] ?? [];
+
+            if (empty($tasks)) {
+                return back()->withInput()->with('ai_error', 'AI returned an empty task list. Please try again with more detail.');
+            }
+
+            return view('ai.breakdown', [
+                'idea'  => $idea,
+                'tasks' => $tasks,
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('AI breakdown error', ['message' => $e->getMessage()]);
+            return back()->withInput()->with('ai_error', 'Could not connect to AI service or parse response: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Bulk import selected AI-generated tasks for the current user.
+     */
+    public function importTasks(Request $request)
+    {
+        $request->validate([
+            'tasks'               => 'required|array|min:1',
+            'tasks.*.title'       => 'required|string|max:255',
+            'tasks.*.description' => 'nullable|string',
+            'tasks.*.priority'    => 'required|in:high,medium,low',
+        ]);
+
+        $userId = Auth::id();
+        $count  = 0;
+
+        foreach ($request->input('tasks') as $taskData) {
+            Task::create([
+                'user_id'     => $userId,
+                'title'       => $taskData['title'],
+                'description' => $taskData['description'] ?? null,
+                'priority'    => $taskData['priority'],
+                'is_completed' => false,
+            ]);
+            $count++;
+        }
+
+        return redirect()->route('tasks.index')
+            ->with('success', "{$count} task(s) imported successfully from AI breakdown!");
+    }
+
+    // ─── Agile Backlog ────────────────────────────────────────────────
+
+    /**
+     * Show the Agile Backlog Generator form.
+     */
+    public function showBacklog()
+    {
+        return view('ai.backlog');
+    }
+
+    /**
+     * Call the AI Agent to generate an Agile backlog and sprints.
+     */
+    public function backlog(Request $request)
+    {
+        $request->validate([
+            'idea'           => 'required|string|min:10|max:2000',
+            'sprint_count'   => 'nullable|integer|min:1|max:6',
+        ]);
+
+        $idea = $request->input('idea');
+        $sprintCount = $request->input('sprint_count', 3);
+
+        try {
+            // Using laravel/ai AgileBacklogAgent
+            $response = AgileBacklogAgent::make()->prompt("Create exactly {$sprintCount} sprints for: " . $idea);
+            $backlog = $response->toArray();
+
+            if (empty($backlog) || !isset($backlog['sprints'])) {
+                return back()->withInput()->with('ai_error', 'AI returned an unexpected format. Please try again.');
+            }
+
+            return view('ai.backlog', [
+                'idea'    => $idea,
+                'backlog' => $backlog,
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('AI backlog error', ['message' => $e->getMessage()]);
+            return back()->withInput()->with('ai_error', 'Could not connect to AI service or parse response: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Import all stories from a backlog as tasks.
+     */
+    public function importBacklog(Request $request)
+    {
+        $request->validate([
+            'tasks'                              => 'required|array|min:1',
+            'tasks.*.title'                      => 'required|string|max:255',
+            'tasks.*.description'                => 'nullable|string',
+            'tasks.*.priority'                   => 'required|in:high,medium,low',
+            'tasks.*.sprint_name'                => 'required|string|max:255',
+            'tasks.*.sprint_goal'                => 'nullable|string',
+            'tasks.*.sprint_duration_weeks'      => 'nullable|integer',
+            'tasks.*.story_points'               => 'nullable|integer',
+            'tasks.*.project_name'               => 'nullable|string|max:255',
+        ]);
+
+        $userId = Auth::id();
+        $count  = 0;
+
+        foreach ($request->input('tasks') as $taskData) {
+            // Find or create the Sprint for this user and project
+            $sprint = Sprint::firstOrCreate([
+                'user_id'      => $userId,
+                'name'         => $taskData['sprint_name'],
+                'project_name' => $taskData['project_name'] ?: 'My Project',
+            ], [
+                'goal'           => $taskData['sprint_goal'] ?: null,
+                'duration_weeks' => $taskData['sprint_duration_weeks'] ?: 2,
+            ]);
+
+            Task::create([
+                'user_id'      => $userId,
+                'title'        => $taskData['title'],
+                'description'  => $taskData['description'] ?? null,
+                'priority'     => $taskData['priority'],
+                'sprint_id'    => $sprint->id,
+                'story_points' => $taskData['story_points'] ?? null,
+                'is_completed' => false,
+            ]);
+            $count++;
+        }
+
+        return redirect()->route('tasks.index')
+            ->with('success', "{$count} backlog item(s) imported successfully into Sprints!");
+    }
+}

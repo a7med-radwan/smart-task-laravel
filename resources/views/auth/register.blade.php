@@ -4,30 +4,30 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Focus - Register</title>
+    <title>SmartTask - Register</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: "#3525cd",
-                        "on-surface": "#0b1c30",
-                        "on-surface-variant": "#464555",
-                        "outline-variant": "#c7c4d8",
-                        background: "#f8f9ff",
-                        surface: "#f8f9ff",
+                        primary: "#0284c7",
+                        "on-surface": "#0f172a",
+                        "on-surface-variant": "#475569",
+                        "outline-variant": "#e2e8f0",
+                        background: "#f8fafc",
+                        surface: "#ffffff",
                     }
                 }
             }
         }
     </script>
     <style>
-        body {font-family: 'Geist', sans-serif; background-color: #f8f9ff;}
+        body {font-family: 'Geist', sans-serif; background-color: #f8fafc;}
     </style>
 </head>
 
@@ -39,7 +39,7 @@
     <div class="w-full max-w-[460px] bg-white border border-outline-variant rounded-2xl shadow-xl p-8 md:p-10 relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <!-- Header -->
         <div class="text-center mb-8">
-            <h1 class="text-headline-lg font-black text-primary tracking-tight text-[36px]">Focus</h1>
+            <h1 class="text-headline-lg font-black text-primary tracking-tight text-[36px]">SmartTask</h1>
             <p class="text-body-lg text-on-surface-variant mt-2">Create your account to start managing tasks</p>
         </div>
 

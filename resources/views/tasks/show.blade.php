@@ -1,4 +1,4 @@
-<x-layout title="Focus - Task Details">
+<x-layout title="SmartTask - Task Details">
     <div class="max-w-2xl mx-auto space-y-6">
         <!-- Back Navigation -->
         <a href="{{ route('tasks.index') }}" class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md">
