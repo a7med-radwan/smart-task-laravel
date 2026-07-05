@@ -61,6 +61,7 @@ class SprintTest extends TestCase
                     'story_points' => 5,
                     'project_name' => 'Auth System',
                     'sprint_index' => 0,
+                    'due_time' => '17:00',
                 ],
                 [
                     'title' => 'Story 2: User Profile',
@@ -72,6 +73,7 @@ class SprintTest extends TestCase
                     'story_points' => 3,
                     'project_name' => 'Auth System',
                     'sprint_index' => 0,
+                    'due_time' => '17:00',
                 ],
                 [
                     'title' => 'Story 3: Database setup',
@@ -83,6 +85,7 @@ class SprintTest extends TestCase
                     'story_points' => 8,
                     'project_name' => 'Auth System',
                     'sprint_index' => 1,
+                    'due_time' => '17:00',
                 ]
             ]
         ];

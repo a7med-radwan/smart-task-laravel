@@ -148,6 +148,7 @@ class AiTaskController extends Controller
             'tasks.*.story_points'               => 'nullable|integer',
             'tasks.*.project_name'               => 'nullable|string|max:255',
             'tasks.*.sprint_index'               => 'nullable|integer',
+            'tasks.*.due_time'                   => 'nullable|string',
         ]);
 
         $userId = Auth::id();
@@ -178,7 +179,7 @@ class AiTaskController extends Controller
                 'sprint_id'    => $sprint->id,
                 'story_points' => $taskData['story_points'] ?? null,
                 'due_date'     => $dueDate,
-                'due_time'     => '17:00',
+                'due_time'     => $taskData['due_time'] ?? '17:00',
                 'is_completed' => false,
             ]);
             $count++;

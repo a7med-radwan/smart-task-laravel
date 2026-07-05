@@ -265,6 +265,7 @@
                         <input type="hidden" name="tasks[{{ $taskIdx }}][story_points]" value="{{ $story['story_points'] ?? 3 }}">
                         <input type="hidden" name="tasks[{{ $taskIdx }}][project_name]" value="{{ $backlog['project_title'] ?? 'My Project' }}">
                         <input type="hidden" name="tasks[{{ $taskIdx }}][sprint_index]" value="{{ $sprintIndex }}">
+                        <input type="hidden" name="tasks[{{ $taskIdx }}][due_time]" value="{{ $story['due_time'] ?? '17:00' }}">
                         @php $taskIdx++; @endphp
                     @endforeach
                 @endforeach
