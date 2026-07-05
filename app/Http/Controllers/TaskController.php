@@ -18,14 +18,6 @@ class TaskController extends Controller
         $user = Auth::user();
         $query = $user->tasks();
 
-        // Apply search query
-        if ($request->filled('search')) {
-            $search = $request->input('search');
-            $query->where(function($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
-            });
-        }
 
         // Apply priority filter
         if ($request->filled('priority')) {

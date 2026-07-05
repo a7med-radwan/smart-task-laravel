@@ -399,7 +399,8 @@
                 <div class="flex-1 min-w-0">
                     <p class="text-xs font-bold text-on-surface truncate leading-tight">{{ auth()->user()->name }}</p>
                     <p class="text-[9.5px] font-semibold text-on-surface-variant/70 truncate leading-none mt-0.5">
-                        {{ auth()->user()->email }}</p>
+                        {{ auth()->user()->email }}
+                    </p>
                 </div>
                 <!-- Logout Trigger -->
                 <a href="{{ route('logout') }}"
@@ -426,14 +427,6 @@
                     class="lg:hidden p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
                     <i data-lucide="menu" class="w-5 h-5"></i>
                 </button>
-                <form action="{{ route('tasks.index') }}" method="GET" class="relative w-full max-w-md m-0 p-0">
-                    <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-on-surface-variant"></i>
-                    <input
-                        name="search"
-                        value="{{ request('search') }}"
-                        class="w-full bg-surface-container-low border border-outline-variant rounded-full py-2 pl-10 pr-4 text-body-md focus:outline-none focus:border-primary transition-all"
-                        placeholder="Search tasks, descriptions..." type="text">
-                </form>
             </div>
             <div class="flex items-center gap-stack-lg ml-gutter-desktop">
                 <!-- Theme Toggle Button -->
@@ -454,7 +447,8 @@
                         <img alt="User"
                             class="w-8 h-8 rounded-full border border-outline-variant object-cover shadow-sm transition-transform duration-200 hover:scale-105"
                             src="{{ auth()->user()->avatar_url }}">
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-on-surface-variant group-hover:text-primary transition-colors shrink-0"></i>
+                        <i data-lucide="chevron-down"
+                            class="w-4 h-4 text-on-surface-variant group-hover:text-primary transition-colors shrink-0"></i>
                     </button>
                     <!-- Dropdown Menu -->
                     <div id="profile-dropdown"
@@ -581,7 +575,7 @@
             const isDark = document.documentElement.classList.contains('dark');
             themeToggleIcon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
             lucide.createIcons();
-            
+
             themeToggleBtn.addEventListener('click', () => {
                 if (document.documentElement.classList.contains('dark')) {
                     document.documentElement.classList.remove('dark');

@@ -65,16 +65,7 @@
             </a>
         </div>
 
-        @if(request()->filled('search'))
-            <div class="flex items-center gap-2 bg-primary/10 border border-primary/20 px-3 py-1.5 rounded-lg text-label-sm font-label-sm text-primary">
-                <span>Search: "{{ request('search') }}"</span>
-                <a href="{{ route('tasks.index', request()->except(['search', 'page'])) }}" class="hover:text-error transition-colors">
-                    <i data-lucide="x" class="w-3.5 h-3.5 inline"></i>
-                </a>
-            </div>
-        @endif
-
-        @if(request()->has('priority') || request()->has('status') || request()->has('search'))
+        @if(request()->has('priority') || request()->has('status'))
             <a href="{{ route('tasks.index') }}" class="ml-auto text-label-sm font-label-sm text-error hover:underline flex items-center gap-1">
                 <i data-lucide="x-circle" class="w-4 h-4"></i>
                 Clear Filters
