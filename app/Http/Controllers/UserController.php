@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\FileUpload;
 use App\Http\Requests\ProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class UserController extends Controller
         return view('user.edit', ['user'=> $user]);
     }
 
-    public function edit(ProfileRequest $request)
+    public function edit(ProfileRequest $request, FileUpload $fileUpload)
     {
         $user = Auth::user();
 
@@ -40,7 +41,7 @@ class UserController extends Controller
                 Storage::disk('public')->delete($user->avatar);
             }
 
-            $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
+            $data['avatar'] = $fileUpload->handle('avatar', 'avatars', 'public');
         }
 
         $user->update($data);
