@@ -156,6 +156,8 @@
                             {{-- Hidden fields for other data --}}
                             <input type="hidden" name="tasks[{{ $index }}][description]" value="{{ $task['description'] ?? '' }}">
                             <input type="hidden" name="tasks[{{ $index }}][priority]" value="{{ $priority }}">
+                            <input type="hidden" name="tasks[{{ $index }}][days_from_now]" value="{{ $task['days_from_now'] ?? 3 }}">
+                            <input type="hidden" name="tasks[{{ $index }}][due_time]" value="{{ $task['due_time'] ?? '17:00' }}">
 
                             {{-- Visual checkbox --}}
                             <div class="task-visual-check w-6 h-6 rounded-full border-2 border-primary bg-primary flex items-center justify-center shrink-0 mt-0.5 transition-all"
@@ -168,9 +170,10 @@
                                 <div class="flex items-start justify-between gap-2 mb-1">
                                     <h4 class="font-body-lg text-body-lg text-on-surface font-bold">{{ $task['title'] }}</h4>
                                     <div class="flex items-center gap-2 shrink-0">
-                                        @if(isset($task['estimated_hours']))
-                                            <span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant rounded-lg text-label-sm font-label-sm whitespace-nowrap">
-                                                ~{{ $task['estimated_hours'] }}h
+                                        @if(isset($task['days_from_now']))
+                                            <span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant rounded-lg text-label-sm font-label-sm whitespace-nowrap flex items-center gap-1">
+                                                <i data-lucide="clock" class="w-3 h-3"></i>
+                                                In {{ $task['days_from_now'] }} day{{ $task['days_from_now'] > 1 ? 's' : '' }} ({{ $task['due_time'] ?? '17:00' }})
                                             </span>
                                         @endif
                                         <span class="px-2.5 py-0.5 {{ $pc['bg'] }} rounded-lg text-label-sm font-label-sm uppercase font-bold whitespace-nowrap">

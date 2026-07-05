@@ -247,14 +247,24 @@
                 @php $taskIdx = 0; @endphp
                 @foreach ($sprints as $sprintIndex => $sprint)
                     @foreach ($sprint['stories'] ?? [] as $story)
+                        @php
+                            $fullDesc = $story['description'] ?? '';
+                            if(!empty($story['tasks'])) {
+                                $fullDesc .= "\n\nSub-tasks:\n";
+                                foreach($story['tasks'] as $subTask) {
+                                    $fullDesc .= "- [ ] " . $subTask . "\n";
+                                }
+                            }
+                        @endphp
                         <input type="hidden" name="tasks[{{ $taskIdx }}][title]"       value="{{ $story['title'] }}">
-                        <input type="hidden" name="tasks[{{ $taskIdx }}][description]" value="{{ $story['description'] ?? '' }}">
+                        <input type="hidden" name="tasks[{{ $taskIdx }}][description]" value="{{ $fullDesc }}">
                         <input type="hidden" name="tasks[{{ $taskIdx }}][priority]"    value="{{ strtolower($story['priority'] ?? 'medium') }}">
                         <input type="hidden" name="tasks[{{ $taskIdx }}][sprint_name]"  value="{{ $sprint['name'] ?? 'Sprint ' . ($sprintIndex + 1) }}">
                         <input type="hidden" name="tasks[{{ $taskIdx }}][sprint_goal]"  value="{{ $sprint['goal'] ?? '' }}">
                         <input type="hidden" name="tasks[{{ $taskIdx }}][sprint_duration_weeks]" value="{{ $sprint['duration_weeks'] ?? 2 }}">
                         <input type="hidden" name="tasks[{{ $taskIdx }}][story_points]" value="{{ $story['story_points'] ?? 3 }}">
                         <input type="hidden" name="tasks[{{ $taskIdx }}][project_name]" value="{{ $backlog['project_title'] ?? 'My Project' }}">
+                        <input type="hidden" name="tasks[{{ $taskIdx }}][sprint_index]" value="{{ $sprintIndex }}">
                         @php $taskIdx++; @endphp
                     @endforeach
                 @endforeach

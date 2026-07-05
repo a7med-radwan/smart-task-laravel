@@ -60,28 +60,33 @@ class AiTaskController extends Controller
     public function importTasks(Request $request)
     {
         $request->validate([
-            'tasks'               => 'required|array|min:1',
-            'tasks.*.title'       => 'required|string|max:255',
-            'tasks.*.description' => 'nullable|string',
-            'tasks.*.priority'    => 'required|in:high,medium,low',
+            'tasks'                 => 'required|array|min:1',
+            'tasks.*.title'         => 'required|string|max:255',
+            'tasks.*.description'   => 'nullable|string',
+            'tasks.*.priority'      => 'required|in:high,medium,low',
+            'tasks.*.days_from_now' => 'nullable|integer',
+            'tasks.*.due_time'      => 'nullable|string',
         ]);
 
         $userId = Auth::id();
         $count  = 0;
 
         foreach ($request->input('tasks') as $taskData) {
+            $days = isset($taskData['days_from_now']) ? (int)$taskData['days_from_now'] : 3;
             Task::create([
-                'user_id'     => $userId,
-                'title'       => $taskData['title'],
-                'description' => $taskData['description'] ?? null,
-                'priority'    => $taskData['priority'],
+                'user_id'      => $userId,
+                'title'        => $taskData['title'],
+                'description'  => $taskData['description'] ?? null,
+                'priority'     => $taskData['priority'],
+                'due_date'     => now()->addDays($days)->toDateString(),
+                'due_time'     => $taskData['due_time'] ?? '17:00',
                 'is_completed' => false,
             ]);
             $count++;
         }
 
         return redirect()->route('tasks.index')
-            ->with('success', "{$count} task(s) imported successfully from AI breakdown!");
+            ->with('success', "{$count} task(s) imported successfully with due dates/times from AI breakdown!");
     }
 
     // ─── Agile Backlog ────────────────────────────────────────────────
@@ -142,6 +147,7 @@ class AiTaskController extends Controller
             'tasks.*.sprint_duration_weeks'      => 'nullable|integer',
             'tasks.*.story_points'               => 'nullable|integer',
             'tasks.*.project_name'               => 'nullable|string|max:255',
+            'tasks.*.sprint_index'               => 'nullable|integer',
         ]);
 
         $userId = Auth::id();
@@ -158,6 +164,12 @@ class AiTaskController extends Controller
                 'duration_weeks' => $taskData['sprint_duration_weeks'] ?: 2,
             ]);
 
+            // Calculate due date based on sprint sequence
+            $sprintIndex = isset($taskData['sprint_index']) ? (int)$taskData['sprint_index'] : 0;
+            $durationWeeks = isset($taskData['sprint_duration_weeks']) ? (int)$taskData['sprint_duration_weeks'] : 2;
+            $weeksOffset = ($sprintIndex + 1) * $durationWeeks;
+            $dueDate = now()->addWeeks($weeksOffset)->toDateString();
+
             Task::create([
                 'user_id'      => $userId,
                 'title'        => $taskData['title'],
@@ -165,6 +177,8 @@ class AiTaskController extends Controller
                 'priority'     => $taskData['priority'],
                 'sprint_id'    => $sprint->id,
                 'story_points' => $taskData['story_points'] ?? null,
+                'due_date'     => $dueDate,
+                'due_time'     => '17:00',
                 'is_completed' => false,
             ]);
             $count++;

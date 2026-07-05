@@ -24,7 +24,7 @@ class TaskBreakdownAgent implements Agent, Conversational, HasStructuredOutput, 
      */
     public function instructions(): Stringable|string
     {
-        return 'You are a senior software project manager. Your job is to break down a feature, use case, or idea into clear, actionable development tasks. Generate between 4 and 12 tasks, ordered logically (dependencies first).';
+        return 'You are a senior software project manager. Your job is to break down a feature, use case, or idea into clear, actionable development tasks. Generate between 4 and 12 tasks, ordered logically (dependencies first). For each task, estimate how many days from now the task should be due (e.g. 1, 2, 5) and suggest a logical due time (e.g. "09:00", "17:00").';
     }
 
     /**
@@ -54,7 +54,8 @@ class TaskBreakdownAgent implements Agent, Conversational, HasStructuredOutput, 
                     'title' => $schema->string()->required(),
                     'description' => $schema->string()->required(),
                     'priority' => $schema->string()->enum(['high', 'medium', 'low'])->required(),
-                    'estimated_hours' => $schema->integer()->required(),
+                    'days_from_now' => $schema->integer()->required(),
+                    'due_time' => $schema->string()->required(),
                 ])
             )->required(),
         ];
