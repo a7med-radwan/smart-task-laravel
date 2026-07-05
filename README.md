@@ -1,58 +1,135 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 SmartTask – AI-Powered Agile Task & Sprint Manager
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel Version](https://img.shields.io/badge/Laravel-v13.x-red.svg?style=for-the-badge&logo=laravel)](https://laravel.com)
+[![PHP Version](https://img.shields.io/badge/PHP-%5E8.3%20%7C%208.4-blue.svg?style=for-the-badge&logo=php)](https://www.php.net)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v3.x-38bdf8.svg?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
+[![Laravel AI](https://img.shields.io/badge/Laravel%20AI-Agentic-violet.svg?style=for-the-badge)](https://github.com/laravel/ai)
 
-## About Laravel
+**SmartTask** is a modern, AI-augmented project management web application built on **Laravel 13**, **Tailwind CSS**, and the official **Laravel AI SDK**. It is designed to help teams and developers bridge the gap between initial software ideas and highly structured, actionable Agile sprints.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🌟 Key Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 📋 1. Complete Task CRUD & Board
+*   **Intuitive Interface:** Create, view, update, delete, and filter tasks seamlessly.
+*   **Quick Actions:** Toggle task completion with a single click.
+*   **Task Filters:** Filter tasks by **Priority** (High, Medium, Low) and **Status** (Completed, Pending).
 
-## Learning Laravel
+### 🤖 2. AI-Powered Task Breakdown
+*   **Feature-to-Tasks Conversion:** Input any feature idea, description, or project spec.
+*   **Agentic AI Analysis:** The underlying `TaskBreakdownAgent` decomposes the prompt into discrete tasks.
+*   **Automatic Estimates:** Generates priority, estimated days from now, and due time.
+*   **Bulk Import:** Select and import generated tasks directly into your task list with pre-calculated due dates.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 🔄 3. AI-Powered Agile Backlog & Sprint Planner
+*   **Sprint Generation:** Enter a project goal and specify the number of sprints (up to 6).
+*   **Smart Scheduling:** The `AgileBacklogAgent` structures the backlog, defining specific sprint names, sprint goals, story points, and task lists.
+*   **Sprint Import:** Automatically creates sprints in the database and associates tasks with progressive due dates based on the sprint timeline.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 📊 4. Developer Analytics Dashboard
+*   **Task Summary Metrics:** High-level counters for total, pending, and completed tasks.
+*   **Interactive Charts:** Dynamic visual progression of sprints and project tasks.
+*   **Sprint Performance Tracker:** Shows progress percentage and stories allocation per sprint.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### 👤 5. Secure Authentication & Profiles
+*   **Laravel Fortify:** Robust registration, login, session security, and password management.
+*   **User Profiles:** Edit user details (Name, Username, Email) and upload custom avatars (stored securely using Laravel Storage).
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## 🛠 Tech Stack
 
+*   **Backend:** PHP 8.3 / 8.4, [Laravel 13.x](https://laravel.com)
+*   **AI Integration:** [Laravel AI SDK](https://github.com/laravel/ai) (leveraging structured JSON schema responses)
+*   **Security & Auth:** [Laravel Fortify](https://laravel.com/docs/fortify)
+*   **Frontend:** Blade templates, Tailwind CSS, JavaScript
+*   **Development Tools:** Laravel Pail (log streaming), Laravel Pint (code styling)
+
+---
+
+## ⚙️ Installation & Setup
+
+We have made setting up the project extremely simple. Follow the steps below:
+
+### 1. Prerequisites
+Make sure you have PHP 8.3+, Composer, Node.js (with npm), and SQLite/MySQL/PostgreSQL installed.
+
+### 2. Quick-Start Setup
+Clone the repository, go into the directory, and run the automated composer setup script:
 ```bash
-composer require laravel/boost --dev
+composer run setup
+```
+This script will automatically:
+1. Install PHP dependencies (`composer install`).
+2. Copy the `.env.example` to `.env` (if it doesn't exist).
+3. Generate the application key (`php artisan key:generate`).
+4. Run the database migrations (`php artisan migrate --force`).
+5. Install and build frontend assets (`npm install && npm run build`).
 
-php artisan boost:install
+### 3. Configure AI Provider
+SmartTask uses the official Laravel AI SDK. Open your `.env` file and add your AI provider credentials. For example, if you are using OpenAI:
+```env
+AI_PROVIDER=openai
+OPENAI_API_KEY=your-openai-api-key-here
+```
+Or if using Gemini:
+```env
+AI_PROVIDER=gemini
+GEMINI_API_KEY=your-gemini-api-key-here
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 4. Link Storage (For profile avatars)
+Ensure your storage is linked so that uploaded avatars can be served publicly:
+```bash
+php artisan storage:link
+```
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🚀 Running the Application
 
-## Code of Conduct
+You can start the local development server, Vite watcher, and queue listener concurrently with a single command:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+composer run dev
+```
 
-## Security Vulnerabilities
+This starts:
+*   **Local Web Server:** `http://127.0.0.1:8000`
+*   **Vite Development Server:** Handles hot module reloading for assets.
+*   **Queue Listener:** Processes background jobs.
+*   **Laravel Pail:** Real-time console log streaming.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 📂 Code Architecture Highlights
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The codebase follows Laravel Best Practices strictly:
+
+*   **Dedicated Form Requests:** All input validations are separated into custom Request files located in `app/Http/Requests`:
+    *   `ProfileRequest.php` – Validates profile edits and avatar uploads.
+    *   `TaskRequest.php` – Validates standard manual task inputs.
+    *   `BreakdownRequest.php` – Validates the AI breakdown idea inputs.
+    *   `ImportTasksRequest.php` – Validates bulk tasks imported from AI breakdown.
+    *   `BacklogRequest.php` – Validates the Agile backlog sprint count and idea inputs.
+    *   `ImportBacklogRequest.php` – Validates sprint backlog structures and story point arrays.
+*   **AI Agent Layer:** Located under `app/Ai/Agents/`. These agents define custom system prompts and structured output requirements to ensure standard JSON responses from LLM services.
+*   **Controllers:** Minimalist, type-hinting Form Requests to automate request validation before executing actions.
+
+---
+
+## 🧪 Running Tests
+
+A comprehensive suite of feature tests is included to verify core functionalities (such as Agile sprint creation and AI backlog imports):
+
+Run the test suite:
+```bash
+php artisan test
+```
+
+---
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](LICENSE).
