@@ -117,9 +117,9 @@
                         Cancel
                     </a>
                     <button
-                        class="w-full sm:w-auto px-3 py-1 bg-primary-container text-on-primary-container hover:bg-primary transition-all rounded-lg font-headline-md text-headline-md active:scale-95 flex items-center justify-center gap-2"
+                        class="w-full sm:w-auto px-6 py-2.5 bg-primary text-on-primary hover:opacity-90 transition-all rounded-lg font-label-md text-label-md active:scale-95 flex items-center justify-center gap-2 shadow-sm"
                         type="submit">
-                        <span class="material-symbols-outlined" data-icon="add_task">add_task</span>
+                        <span class="material-symbols-outlined text-[18px]" data-icon="add_task">add_task</span>
                         Save Task
                     </button>
                 </div>

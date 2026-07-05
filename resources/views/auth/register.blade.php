@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html class="dark" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -9,25 +9,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: "#0284c7",
-                        "on-surface": "#0f172a",
-                        "on-surface-variant": "#475569",
-                        "outline-variant": "#e2e8f0",
-                        background: "#f8fafc",
-                        surface: "#ffffff",
+                        primary: "#38bdf8",
+                        "on-surface": "#e2e8f0",
+                        "on-surface-variant": "#94a3b8",
+                        "outline-variant": "#222e40",
+                        background: "#0f1219",
+                        surface: "#161e2b",
                     }
                 }
             }
         }
     </script>
     <style>
-        body {font-family: 'Geist', sans-serif; background-color: #f8fafc;}
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f1219;
+        }
     </style>
 </head>
 
@@ -36,7 +39,7 @@
     <div class="absolute -top-40 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
     <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-secondary-container/30 rounded-full blur-3xl"></div>
 
-    <div class="w-full max-w-[460px] bg-white border border-outline-variant rounded-2xl shadow-xl p-8 md:p-10 relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div class="w-full max-w-[460px] bg-surface border border-outline-variant rounded-2xl shadow-xl p-8 md:p-10 relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <!-- Header -->
         <div class="text-center mb-8">
             <h1 class="text-headline-lg font-black text-primary tracking-tight text-[36px]">SmartTask</h1>
@@ -63,7 +66,7 @@
                 <label class="font-label-md text-label-md text-on-surface-variant block mb-1.5 uppercase tracking-wider text-[11px]" for="name">Full Name</label>
                 <div class="relative group">
                     <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 group-focus-within:text-primary transition-colors">person</span>
-                    <input class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md bg-white outline-none transition-all"
+                    <input class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md bg-[#121318] outline-none transition-all"
                            id="name" type="text" name="name" placeholder="Alexander Wright" value="{{ old('name') }}" required />
                 </div>
             </div>
@@ -73,7 +76,7 @@
                 <label class="font-label-md text-label-md text-on-surface-variant block mb-1.5 uppercase tracking-wider text-[11px]" for="email">Email Address</label>
                 <div class="relative group">
                     <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 group-focus-within:text-primary transition-colors">mail</span>
-                    <input class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md bg-white outline-none transition-all"
+                    <input class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md bg-[#121318] outline-none transition-all"
                            id="email" type="email" name="email" placeholder="alexander.w@focus.com" value="{{ old('email') }}" required />
                 </div>
             </div>
@@ -83,7 +86,7 @@
                 <label class="font-label-md text-label-md text-on-surface-variant block mb-1.5 uppercase tracking-wider text-[11px]" for="password">Password</label>
                 <div class="relative group">
                     <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 group-focus-within:text-primary transition-colors">lock</span>
-                    <input class="w-full pl-10 pr-12 py-2.5 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md bg-white outline-none transition-all"
+                    <input class="w-full pl-10 pr-12 py-2.5 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md bg-[#121318] outline-none transition-all"
                            id="password" type="password" name="password" placeholder="••••••••" required autocomplete="new-password" />
                     <button type="button" id="toggle-password" class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 hover:text-on-surface focus:outline-none">
                         <span class="material-symbols-outlined" id="password-icon">visibility</span>
@@ -96,7 +99,7 @@
                 <label class="font-label-md text-label-md text-on-surface-variant block mb-1.5 uppercase tracking-wider text-[11px]" for="password_confirmation">Confirm Password</label>
                 <div class="relative group">
                     <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 group-focus-within:text-primary transition-colors">lock</span>
-                    <input class="w-full pl-10 pr-12 py-2.5 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md bg-white outline-none transition-all"
+                    <input class="w-full pl-10 pr-12 py-2.5 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md bg-[#121318] outline-none transition-all"
                            id="password_confirmation" type="password" name="password_confirmation" placeholder="••••••••" required autocomplete="new-password" />
                     <button type="button" id="toggle-confirm" class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 hover:text-on-surface focus:outline-none">
                         <span class="material-symbols-outlined" id="confirm-icon">visibility</span>

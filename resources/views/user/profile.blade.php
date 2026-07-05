@@ -107,7 +107,7 @@
         <div class="flex justify-between items-center pt-stack-lg border-t border-outline-variant text-on-surface-variant">
             <p class="font-label-sm text-label-sm">Manage your account settings</p>
             <button onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                class="text-error font-label-md flex items-center gap-2 hover:bg-error-container/20 px-4 py-2 rounded-lg transition-colors">
+                class="text-error font-label-md text-label-md flex items-center gap-2 hover:bg-error-container/20 px-4 py-2 rounded-lg transition-colors">
                 <span class="material-symbols-outlined text-[18px]">logout</span>
                 Sign Out
             </button>

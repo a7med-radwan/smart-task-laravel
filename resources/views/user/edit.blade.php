@@ -9,7 +9,7 @@
                             avatar.</p>
                     </div>
                     <a href="{{ route('profile.index') }}"
-                        class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-all">Back
+                        class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md text-label-md transition-all">Back
                         to profile</a>
                 </div>
 
@@ -74,9 +74,9 @@
 
                 <div class="pt-stack-md flex flex-col sm:flex-row items-center justify-end gap-stack-md">
                     <a href="{{ route('profile.index') }}"
-                        class="w-full sm:w-auto px-6 py-2.5 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-colors text-center">Cancel</a>
+                        class="w-full sm:w-auto px-6 py-2.5 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md text-label-md transition-colors text-center">Cancel</a>
                     <button type="submit"
-                        class="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-primary text-white font-bold hover:opacity-90 active:scale-95 transition-all">Save
+                        class="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-primary text-on-primary font-bold hover:opacity-90 active:scale-95 font-label-md text-label-md transition-all shadow-sm">Save
                         Changes</button>
                 </div>
             </form>

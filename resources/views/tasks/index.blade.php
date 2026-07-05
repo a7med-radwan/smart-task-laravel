@@ -22,7 +22,7 @@
     </div>
 
     <!-- View Switcher Tabs -->
-    <div class="flex border-b border-outline-variant dark:border-[#2d3d54]/60 mb-6">
+    <div class="flex border-b border-outline-variant dark:border-outline/60 mb-6">
         <button id="tab-all-btn" class="px-5 py-3 border-b-2 border-primary text-primary font-bold font-label-md text-label-md transition-all focus:outline-none cursor-pointer">
             All Tasks
         </button>
