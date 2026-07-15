@@ -435,11 +435,6 @@
                     <i id="theme-toggle-icon" data-lucide="moon" class="w-5 h-5"></i>
                 </button>
 
-                <button
-                    class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer focus:outline-none">
-                    <i data-lucide="bell" class="w-5 h-5"></i>
-                </button>
-
                 <!-- Profile Dropdown Container -->
                 <div class="relative">
                     <button id="profile-menu-btn"

@@ -18,16 +18,16 @@ class TaskController extends Controller
         $user = Auth::user();
         $query = $user->tasks();
 
-
-        // Apply priority filter
+        // Apply priority filter using the byPriority scope.
         if ($request->filled('priority')) {
-            $query->where('priority', $request->input('priority'));
+            $query->byPriority($request->input('priority'));
         }
 
-        // Apply status filter
+        // Apply status filter using completed/pending scopes.
         if ($request->filled('status')) {
-            $isCompleted = $request->input('status') === 'completed';
-            $query->where('is_completed', $isCompleted);
+            $request->input('status') === 'completed'
+                ? $query->completed()
+                : $query->pending();
         }
 
         $tasks = $query->paginate(8)->withQueryString();
@@ -45,8 +45,9 @@ class TaskController extends Controller
     public function create()
     {
         $sprints = Auth::user()->sprints;
+
         return view('tasks.create', [
-            'task' => new Task(),
+            'task' => new Task,
             'sprints' => $sprints,
         ]);
     }
@@ -61,6 +62,7 @@ class TaskController extends Controller
         $validated['user_id'] = auth()->id();
 
         Task::create($validated);
+
         return redirect()->route('tasks.index');
     }
 
@@ -71,8 +73,9 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         abort_if($task->user_id !== auth()->id(), 403, 'You do not have permission to view this task.');
+
         return view('tasks.show', [
-            'task' => $task
+            'task' => $task,
         ]);
     }
 
@@ -84,6 +87,7 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         abort_if($task->user_id !== auth()->id(), 403, 'You do not have permission to edit this task.');
         $sprints = Auth::user()->sprints;
+
         return view('tasks.edit', [
             'task' => $task,
             'sprints' => $sprints,
@@ -105,6 +109,7 @@ class TaskController extends Controller
         }
 
         $task->update($validated);
+
         return redirect()->route('tasks.index');
     }
 
@@ -112,7 +117,7 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         abort_if($task->user_id !== auth()->id(), 403, 'You do not have permission to delete this task.');
-        
+
         $sprintId = $task->sprint_id;
         $task->delete();
 
@@ -133,7 +138,7 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         abort_if($task->user_id !== auth()->id(), 403, 'You do not have permission to toggle this task.');
-        $task->is_completed = !$task->is_completed;
+        $task->is_completed = ! $task->is_completed;
         $task->save();
 
         return redirect()->route('tasks.index');

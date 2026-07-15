@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BacklogRequest extends FormRequest
@@ -17,12 +18,12 @@ class BacklogRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'idea'         => ['required', 'string', 'min:10', 'max:2000'],
+            'idea' => ['required', 'string', 'min:10', 'max:2000'],
             'sprint_count' => ['nullable', 'integer', 'min:1', 'max:6'],
         ];
     }

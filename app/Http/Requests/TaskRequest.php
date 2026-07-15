@@ -22,7 +22,7 @@ class TaskRequest extends FormRequest
      */
     public function rules(): array
     {
-        
+
         return [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',

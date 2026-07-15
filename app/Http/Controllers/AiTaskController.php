@@ -10,8 +10,8 @@ use App\Http\Requests\ImportBacklogRequest;
 use App\Http\Requests\ImportTasksRequest;
 use App\Models\Sprint;
 use App\Models\Task;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class AiTaskController extends Controller
@@ -37,7 +37,7 @@ class AiTaskController extends Controller
         try {
             // Using laravel/ai: make a new instance of TaskBreakdownAgent and prompt it with the user's idea.
             $response = TaskBreakdownAgent::make()->prompt($idea);
-            
+
             // Convert the structured JSON response from AI into a readable PHP associative array.
             $data = $response->toArray();
             $tasks = $data['tasks'] ?? [];
@@ -49,14 +49,15 @@ class AiTaskController extends Controller
 
             // Return the view showing the list of AI breakdown tasks for confirmation.
             return view('ai.breakdown', [
-                'idea'  => $idea,
+                'idea' => $idea,
                 'tasks' => $tasks,
             ]);
 
         } catch (\Exception $e) {
             // If the connection fails or API key is wrong, log the error and notify the user.
             Log::error('AI breakdown error', ['message' => $e->getMessage()]);
-            return back()->withInput()->with('ai_error', 'Could not connect to AI service or parse response: ' . $e->getMessage());
+
+            return back()->withInput()->with('ai_error', 'Could not connect to AI service or parse response: '.$e->getMessage());
         }
     }
 
@@ -66,25 +67,29 @@ class AiTaskController extends Controller
     public function importTasks(ImportTasksRequest $request)
     {
         $userId = Auth::id();
-        $count  = 0;
+        $count = 0;
 
-        // Loop through each task marked/selected by the user for import.
-        foreach ($request->validated('tasks') as $taskData) {
-            // Convert the relative "days from now" estimate into a real calendar date (e.g. 3 days from now).
-            $days = isset($taskData['days_from_now']) ? (int)$taskData['days_from_now'] : 3;
-            
-            // Create and persist the Task record in the database.
-            Task::create([
-                'user_id'      => $userId,
-                'title'        => $taskData['title'],
-                'description'  => $taskData['description'] ?? null,
-                'priority'     => $taskData['priority'],
-                'due_date'     => now()->addDays($days)->toDateString(),
-                'due_time'     => $taskData['due_time'] ?? '17:00',
-                'is_completed' => false,
-            ]);
-            $count++;
-        }
+        // Wrap all inserts in a transaction to ensure all-or-nothing atomicity.
+        // If any task fails to save, the entire import is rolled back.
+        DB::transaction(function () use ($request, $userId, &$count) {
+            // Loop through each task marked/selected by the user for import.
+            foreach ($request->validated('tasks') as $taskData) {
+                // Convert the relative "days from now" estimate into a real calendar date (e.g. 3 days from now).
+                $days = isset($taskData['days_from_now']) ? (int) $taskData['days_from_now'] : 3;
+
+                // Create and persist the Task record in the database.
+                Task::create([
+                    'user_id' => $userId,
+                    'title' => $taskData['title'],
+                    'description' => $taskData['description'] ?? null,
+                    'priority' => $taskData['priority'],
+                    'due_date' => now()->addDays($days)->toDateString(),
+                    'due_time' => $taskData['due_time'] ?? '17:00',
+                    'is_completed' => false,
+                ]);
+                $count++;
+            }
+        });
 
         // Redirect the user to their task backlog list with a success notification badge.
         return redirect()->route('tasks.index')
@@ -112,26 +117,27 @@ class AiTaskController extends Controller
 
         try {
             // Using laravel/ai: construct the backlog agent and prompt it to divide the idea into the requested sprints.
-            $response = AgileBacklogAgent::make()->prompt("Create exactly {$sprintCount} sprints for: " . $idea);
-            
+            $response = AgileBacklogAgent::make()->prompt("Create exactly {$sprintCount} sprints for: ".$idea);
+
             // Convert structured output format to a PHP array.
             $backlog = $response->toArray();
 
             // If the response structure does not match our defined backlog schema, return an error.
-            if (empty($backlog) || !isset($backlog['sprints'])) {
+            if (empty($backlog) || ! isset($backlog['sprints'])) {
                 return back()->withInput()->with('ai_error', 'AI returned an unexpected format. Please try again.');
             }
 
             // Return the backlog view rendering the sprint timelines and stories.
             return view('ai.backlog', [
-                'idea'    => $idea,
+                'idea' => $idea,
                 'backlog' => $backlog,
             ]);
 
         } catch (\Exception $e) {
             // Catch error, log it for developers, and inform the user.
             Log::error('AI backlog error', ['message' => $e->getMessage()]);
-            return back()->withInput()->with('ai_error', 'Could not connect to AI service or parse response: ' . $e->getMessage());
+
+            return back()->withInput()->with('ai_error', 'Could not connect to AI service or parse response: '.$e->getMessage());
         }
     }
 
@@ -141,41 +147,45 @@ class AiTaskController extends Controller
     public function importBacklog(ImportBacklogRequest $request)
     {
         $userId = Auth::id();
-        $count  = 0;
+        $count = 0;
 
-        // Iterate through all user stories generated by the AI backlog agent.
-        foreach ($request->validated('tasks') as $taskData) {
-            // Find an existing sprint matching this name/project for the user, or create a new sprint record.
-            $sprint = Sprint::firstOrCreate([
-                'user_id'      => $userId,
-                'name'         => $taskData['sprint_name'],
-                'project_name' => $taskData['project_name'] ?: 'My Project',
-            ], [
-                'goal'           => $taskData['sprint_goal'] ?: null,
-                'duration_weeks' => $taskData['sprint_duration_weeks'] ?: 2,
-            ]);
+        // Wrap all inserts in a transaction to ensure all-or-nothing atomicity.
+        // If any sprint or task fails to save, the entire backlog import is rolled back.
+        DB::transaction(function () use ($request, $userId, &$count) {
+            // Iterate through all user stories generated by the AI backlog agent.
+            foreach ($request->validated('tasks') as $taskData) {
+                // Find an existing sprint matching this name/project for the user, or create a new sprint record.
+                $sprint = Sprint::firstOrCreate([
+                    'user_id' => $userId,
+                    'name' => $taskData['sprint_name'],
+                    'project_name' => $taskData['project_name'] ?: 'My Project',
+                ], [
+                    'goal' => $taskData['sprint_goal'] ?: null,
+                    'duration_weeks' => $taskData['sprint_duration_weeks'] ?: 2,
+                ]);
 
-            // Calculate when tasks in this sprint are due relative to their sprint sequence order.
-            // E.g., Sprint 1 is due in 2 weeks, Sprint 2 in 4 weeks, etc.
-            $sprintIndex = isset($taskData['sprint_index']) ? (int)$taskData['sprint_index'] : 0;
-            $durationWeeks = isset($taskData['sprint_duration_weeks']) ? (int)$taskData['sprint_duration_weeks'] : 2;
-            $weeksOffset = ($sprintIndex + 1) * $durationWeeks;
-            $dueDate = now()->addWeeks($weeksOffset)->toDateString();
+                // Calculate when tasks in this sprint are due relative to their sprint sequence order.
+                // E.g., Sprint 1 is due in 2 weeks, Sprint 2 in 4 weeks, etc.
+                $sprintIndex = isset($taskData['sprint_index']) ? (int) $taskData['sprint_index'] : 0;
+                $durationWeeks = isset($taskData['sprint_duration_weeks']) ? (int) $taskData['sprint_duration_weeks'] : 2;
+                $weeksOffset = ($sprintIndex + 1) * $durationWeeks;
+                $dueDate = now()->addWeeks($weeksOffset)->toDateString();
 
-            // Create the database record representing the imported user story as a task.
-            Task::create([
-                'user_id'      => $userId,
-                'title'        => $taskData['title'],
-                'description'  => $taskData['description'] ?? null,
-                'priority'     => $taskData['priority'],
-                'sprint_id'    => $sprint->id,
-                'story_points' => $taskData['story_points'] ?? null,
-                'due_date'     => $dueDate,
-                'due_time'     => $taskData['due_time'] ?? '17:00',
-                'is_completed' => false,
-            ]);
-            $count++;
-        }
+                // Create the database record representing the imported user story as a task.
+                Task::create([
+                    'user_id' => $userId,
+                    'title' => $taskData['title'],
+                    'description' => $taskData['description'] ?? null,
+                    'priority' => $taskData['priority'],
+                    'sprint_id' => $sprint->id,
+                    'story_points' => $taskData['story_points'] ?? null,
+                    'due_date' => $dueDate,
+                    'due_time' => $taskData['due_time'] ?? '17:00',
+                    'is_completed' => false,
+                ]);
+                $count++;
+            }
+        });
 
         // Redirect back to task lists.
         return redirect()->route('tasks.index')

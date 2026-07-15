@@ -15,16 +15,16 @@ class FileUpload
     /**
      * Store the uploaded file to public storage.
      *
-     * @param string $key  The name of the input field (e.g. 'avatar')
-     * @param string $path The folder name to store files inside (e.g. 'avatars')
-     * @param string $disk The target filesystem disk (e.g. 'public')
+     * @param  string  $key  The name of the input field (e.g. 'avatar')
+     * @param  string  $path  The folder name to store files inside (e.g. 'avatars')
+     * @param  string  $disk  The target filesystem disk (e.g. 'public')
      * @return string|null The stored file path or null if no file was uploaded
      */
     public function handle(string $key, $path = '/', $disk = 'public'): ?string
     {
         // Retrieve the uploaded file object from the request.
         $file = $this->request->file($key);
-        if (!$file) {
+        if (! $file) {
             return null;
         }
 

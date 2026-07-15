@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ImportTasksRequest extends FormRequest
@@ -17,17 +18,17 @@ class ImportTasksRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'tasks'                 => ['required', 'array', 'min:1'],
-            'tasks.*.title'         => ['required', 'string', 'max:255'],
-            'tasks.*.description'   => ['nullable', 'string'],
-            'tasks.*.priority'      => ['required', 'in:high,medium,low'],
+            'tasks' => ['required', 'array', 'min:1'],
+            'tasks.*.title' => ['required', 'string', 'max:255'],
+            'tasks.*.description' => ['nullable', 'string'],
+            'tasks.*.priority' => ['required', 'in:high,medium,low'],
             'tasks.*.days_from_now' => ['nullable', 'integer'],
-            'tasks.*.due_time'      => ['nullable', 'string'],
+            'tasks.*.due_time' => ['nullable', 'string'],
         ];
     }
 }

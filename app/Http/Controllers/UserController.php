@@ -17,12 +17,12 @@ class UserController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
+
         // Count total, completed, and pending tasks for this user.
         $totalTasks = $user->tasks()->count();
-        $completedTasks = $user->tasks()->where('is_completed', true)->count();
+        $completedTasks = $user->tasks()->completed()->count();
         $pendingTasks = $totalTasks - $completedTasks;
-        
+
         // Compute overall progress percentage, handling divide-by-zero safely.
         $progressPercentage = $totalTasks > 0 ? round(($completedTasks / $totalTasks) * 100) : 0;
 
@@ -35,7 +35,8 @@ class UserController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        return view('user.edit', ['user'=> $user]);
+
+        return view('user.edit', ['user' => $user]);
     }
 
     /**
@@ -64,6 +65,6 @@ class UserController extends Controller
         // Save modifications to the User model.
         $user->update($data);
 
-        return redirect()->route('profile');
+        return redirect()->route('profile.index');
     }
 }

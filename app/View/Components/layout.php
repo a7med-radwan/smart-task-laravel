@@ -8,13 +8,10 @@ use Illuminate\View\Component;
 
 class layout extends Component
 {
-
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $title = 'Focus')
-    {
-    }
+    public function __construct(public string $title = 'Smart Task') {}
 
     /**
      * Get the view / contents that represent the component.

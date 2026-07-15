@@ -6,11 +6,11 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('/', function () {
-    if (auth()->check()) {
-        return redirect()->route('dashboard');
-    }
+    // if (auth()->check()) {
+    //     return redirect()->route('dashboard');
+    // }
+
     return view('welcome');
 })->name('welcome');
 
